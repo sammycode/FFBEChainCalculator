@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/listitemview_item_vertical_margin"
+    android:layout_marginBottom="@dimen/listitemview_item_vertical_margin"
+    android:layout_marginLeft="@dimen/listitemview_item_horizontal_margin"
+    android:layout_marginRight="@dimen/listitemview_item_horizontal_margin" >
+
+    <!-- Unit Name Group -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="@string/u_liv_tv_unit_name_label"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_unit_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[[Unit Name]]"/>
+
+    </LinearLayout>
+
+    <!-- Unit Level Group -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="@string/u_liv_tv_unit_level_label"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_unit_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[[Unit Level]]"/>
+
+    </LinearLayout>
+
+    <!-- Unit Stats Group -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/u_liv_unit_stats_header_label"
+            android:textStyle="bold"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rowCount="2"
+            android:columnCount="3"
+            android:useDefaultMargins="true">
+
+
+            <!-- Attack Power Group -->
+            <LinearLayout
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/u_liv_unit_stats_attack_power_label"/>
+
+                <TextView
+                    android:id="@+id/tv_unit_attack_power"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[[900]]"/>
+
+            </LinearLayout>
+
+            <!-- Magic Power Group -->
+            <LinearLayout
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/u_liv_unit_stats_magic_power_label"/>
+
+                <TextView
+                    android:id="@+id/tv_unit_magic_power"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[[300]]"/>
+
+            </LinearLayout>
+
+            <!-- Defense Rating Group -->
+            <LinearLayout
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/u_liv_unit_stats_defense_rating_label"/>
+                <TextView
+                    android:id="@+id/tv_unt_defense_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[[200]]"/>
+
+            </LinearLayout>
+
+            <!-- Spirit Rating Group -->
+            <LinearLayout
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/u_liv_unit_stats_spirit_rating_label"/>
+
+                <TextView
+                    android:id="@+id/tv_unit_spirit_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[[180]]"/>
+
+            </LinearLayout>
+
+            <!-- Defense Broken Group -->
+            <LinearLayout
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/u_liv_unit_stats_defense_broken_label"/>
+
+                <TextView
+                    android:id="@+id/tv_unit_defense_broken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[[0]]"/>
+
+            </LinearLayout>
+
+            <!-- Spirit Broken Group -->
+            <LinearLayout
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/u_liv_unit_stats_spirit_broken_label"/>
+
+                <TextView
+                    android:id="@+id/tv_unit_spirit_broken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[[0]]"/>
+
+            </LinearLayout>
+
+
+
+        </GridLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

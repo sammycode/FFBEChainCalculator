@@ -54,4 +54,15 @@
     <string name="eu_et_unit_spirit_broken_label" translatable="true">Spirit Broken</string>
     <string name="eu_et_unit_spirit_broken_hint" translatable="true">spirit broken</string>
 
+    <!-- Unit ListItem View -->
+    <string name="u_liv_tv_unit_name_label" translatable="true">Name</string>
+    <string name="u_liv_tv_unit_level_label" translatable="true">Level</string>
+    <string name="u_liv_unit_stats_header_label" translatable="true">Stats</string>
+    <string name="u_liv_unit_stats_attack_power_label" translatable="true">ATK</string>
+    <string name="u_liv_unit_stats_magic_power_label" translatable="true">MAG</string>
+    <string name="u_liv_unit_stats_defense_rating_label" translatable="true">DEF</string>
+    <string name="u_liv_unit_stats_spirit_rating_label" translatable="true">SPR</string>
+    <string name="u_liv_unit_stats_defense_broken_label" translatable="true">DEF-B</string>
+    <string name="u_liv_unit_stats_spirit_broken_label" translatable="true">SPR-B</string>
+
 </resources>
