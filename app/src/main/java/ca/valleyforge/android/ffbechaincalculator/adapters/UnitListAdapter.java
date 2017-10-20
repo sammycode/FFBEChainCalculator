@@ -66,6 +66,7 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
             return;
         }
 
+        //Grabbing the column indexes to map field positions to constants registered in Contract
         int idIndex = _cursor.getColumnIndex(FfbeChainContract.Units._ID);
         int nameIndex = _cursor.getColumnIndex(FfbeChainContract.Units.COLUMN_NAME);
         int levelIndex = _cursor.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_LEVEL);
@@ -76,6 +77,8 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
         int defBrokenIndex = _cursor.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_DEFENCE_BROKEN);
         int sprBrokenIndex = _cursor.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_SPIRIT_BROKEN);
 
+        //First, wireup the unique identifier to the itemview tag, so Uri's can be produced
+        // that reference the exact record.
         _cursor.moveToPosition(position);
         final int unitID = _cursor.getInt(idIndex);
         holder.itemView.setTag(unitID);
