@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.valleyforge.android.ffbechaincalculator.EditUnitActivity"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/grp_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv_edit_unit_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[[Edit Unit Header Text]]"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/grp_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grp_header"
+        android:layout_above="@+id/grp_button_bar">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- The Unit Name Input Group -->
+                <LinearLayout
+                    android:id="@+id/grp_unit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eu_et_unit_name_label"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/et_unit_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/eu_et_unit_name_hint"
+                        android:inputType="text"/>
+
+                </LinearLayout>
+
+                <!-- The Unit Name Level Group -->
+                <LinearLayout
+                    android:id="@+id/grp_unit_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eu_et_unit_level_label"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_unit_level"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/eu_et_unit_level_hint"
+                        android:inputType="number"/>
+
+                </LinearLayout>
+
+                <!-- The Unit Attack Power Group -->
+                <LinearLayout
+                    android:id="@+id/grp_unit_attack_power"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eu_et_unit_attack_power_label"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_unit_attack_power"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/eu_et_unit_attack_power_hint"
+                        android:inputType="number"/>
+
+                </LinearLayout>
+
+                <!-- The Unit Magic Power Group -->
+                <LinearLayout
+                    android:id="@+id/grp_unit_magic_power"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eu_et_unit_magic_power_label"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_unit_magic_power"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/eu_et_unit_magic_power_hint"
+                        android:inputType="number"/>
+
+                </LinearLayout>
+
+                <!-- The Unit Defense Rating Group -->
+                <LinearLayout
+                    android:id="@+id/grp_unit_defense_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eu_et_unit_defense_rating_label"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_unit_defense_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/eu_et_unit_defense_rating_hint"
+                        android:inputType="number"/>
+
+                </LinearLayout>
+
+                <!-- The Unit Spirit Rating Group -->
+                <LinearLayout
+                    android:id="@+id/grp_unit_spirit_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eu_et_unit_spirit_rating_label"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_unit_spirit_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/eu_et_unit_spirit_rating_hint"
+                        android:inputType="number"/>
+
+                </LinearLayout>
+
+                <!-- The Unit Defense Broken Group -->
+                <LinearLayout
+                    android:id="@+id/grp_unit_defense_broken"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eu_et_unit_defense_broken_label"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_unit_defense_broken"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/eu_et_unit_defense_broken_hint"
+                        android:inputType="number"/>
+
+                </LinearLayout>
+
+                <!-- The Unit Spirit Broken Group -->
+                <LinearLayout
+                    android:id="@+id/grp_unit_spirit_broken"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eu_et_unit_spirit_broken_label"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_unit_spirit_broken"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/eu_et_unit_spirit_broken_hint"
+                        android:inputType="number"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/grp_button_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/ButtonBar"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/bn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bn_cancel_text"
+            android:onClick="onCancelActionClick"
+            android:layout_toLeftOf="@+id/bn_save"
+            android:layout_toStartOf="@+id/bn_save"/>
+
+        <Button
+            android:id="@+id/bn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bn_save_text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="onSaveUnitClick"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

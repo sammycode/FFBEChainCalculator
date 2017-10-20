@@ -1,0 +1,57 @@
+<resources>
+    <!--Application-->
+    <string name="app_name">FFBE Chain Calculator</string>
+
+    <!--Common-->
+    <string name="stmt_unknown" translatable="true">Unknown</string>
+
+    <string name="bn_add_text" translatable="true">Add</string>
+    <string name="bn_cancel_text" translatable="true">Cancel</string>
+    <string name="bn_save_text" translatable="true">Save</string>
+
+    <string name="unittype_unit" translatable="true">Unit</string>
+    <string name="unittype_badguy" translatable="true">Badguy</string>
+
+    <!--Main Activity-->
+    <string name="main_header_text">FFBE Chain Calculator</string>
+    <string name="main_bn_manage_units_text" translatable="true">Manage Units</string>
+    <string name="main_bn_manage_badguys_text" translatable="true">Manage Bad Guys</string>
+
+    <!--Manage Units Activity-->
+    <string name="mu_activity_label" translatable="true">Unit Manager</string>
+    <string name="mu_unit_type_label" translatable="true">Unit Type:</string>
+    <string name="mu_units_header" translatable="true">Units</string>
+
+    <!--Edit Unit Activity-->
+    <string name="eu_activity_label" translatable="true">Unit Editor</string>
+    <string name="eu_new_activity_label" translatable="true">Unit Editor: Create</string>
+    <string name="eu_edit_activity_label" translatable="true">Unit Editor: Edit</string>
+
+    <string name="eu_form_header_unit_label">Unit Data</string>
+    <string name="eu_form_header_badguy_label">Badguy Data</string>
+
+    <string name="eu_et_unit_name_label" translatable="true">Unit Name</string>
+    <string name="eu_et_unit_name_hint" translatable="true">unit name</string>
+
+    <string name="eu_et_unit_level_label" translatable="true">Unit Level</string>
+    <string name="eu_et_unit_level_hint" translatable="true">unit level</string>
+
+    <string name="eu_et_unit_attack_power_label" translatable="true">Attack Power</string>
+    <string name="eu_et_unit_attack_power_hint" translatable="true">attack power</string>
+
+    <string name="eu_et_unit_magic_power_label" translatable="true">Magic Power</string>
+    <string name="eu_et_unit_magic_power_hint" translatable="true">magic power</string>
+
+    <string name="eu_et_unit_defense_rating_label" translatable="true">Defense Rating</string>
+    <string name="eu_et_unit_defense_rating_hint" translatable="true">defense rating</string>
+
+    <string name="eu_et_unit_spirit_rating_label" translatable="true">Spirit Rating</string>
+    <string name="eu_et_unit_spirit_rating_hint" translatable="true">spirit rating</string>
+
+    <string name="eu_et_unit_defense_broken_label" translatable="true">Defense Broken</string>
+    <string name="eu_et_unit_defense_broken_hint" translatable="true">defense broken</string>
+
+    <string name="eu_et_unit_spirit_broken_label" translatable="true">Spirit Broken</string>
+    <string name="eu_et_unit_spirit_broken_hint" translatable="true">spirit broken</string>
+
+</resources>

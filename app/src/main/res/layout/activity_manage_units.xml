@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ca.valleyforge.android.ffbechaincalculator.ManageUnitsActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_header_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/mu_unit_type_label"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_unit_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="[[Unit Type]]"/>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/ll_header_wrapper">
+
+        <TextView
+            android:id="@+id/tv_units_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mu_units_header"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"/>
+
+        <!--
+            The Frame Layout is here to prevent the recycler view from taking over
+            What I am doing is using relative layouts to place the frame dimensions against
+            the surrounding wrappers
+        -->
+        <FrameLayout
+            android:id="@+id/fl_rv_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_units_header"
+            android:layout_above="@+id/ll_button_bar_wrapper">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_units"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp" />
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_button_bar_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@android:style/ButtonBar"
+            android:layout_alignParentBottom="true" >
+
+            <Button
+                android:id="@+id/bn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bn_add_text"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="onAddUnitClick"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

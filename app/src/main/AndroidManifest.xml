@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ca.valleyforge.android.ffbechaincalculator">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- The Main Acivity -->
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ManageUnitsActivity"
+            android:label="@string/mu_activity_label"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop">
+            <!--Send user back to Main Activity when heading back-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".EditUnitActivity"
+            android:label="@string/eu_activity_label"
+            android:parentActivityName=".ManageUnitsActivity">
+            <!--Send user back to Manage Units Activity when heading back-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ManageUnitsActivity" />
+        </activity>
+
+        <!-- The Content Provider -->
+        <provider
+            android:name=".data.FfbeChainContentProvider"
+            android:authorities="ca.valleyforge.android.ffbechaincalculator"
+            android:exported="false" />
+
+
+    </application>
+
+</manifest>
