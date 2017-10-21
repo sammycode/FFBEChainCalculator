@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.valleyforge.android.ffbechaincalculator.ViewUnitActivity">
+
+    <FrameLayout
+        android:id="@+id/grp_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv_view_unit_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vu_header_unit_label"
+            android:textStyle="bold"
+            android:textSize="22sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/grp_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grp_header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- The Unit Name View Group -->
+            <LinearLayout
+                android:id="@+id/grp_unit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vu_tv_unit_name_label"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_unit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="[[Unit Name]]" />
+            </LinearLayout>
+
+            <!-- The Unit Level View Group -->
+            <LinearLayout
+                android:id="@+id/grp_unit_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vu_tv_unit_level_label"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_unit_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="[[Unit Level]]" />
+            </LinearLayout>
+
+            <!-- Separator -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+
+            <!-- Unit Stats Group -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/u_liv_unit_stats_header_label"
+                    android:textStyle="bold"/>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:rowCount="2"
+                    android:columnCount="3"
+                    android:useDefaultMargins="true">
+
+
+                    <!-- Attack Power Group -->
+                    <LinearLayout
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/u_liv_unit_stats_attack_power_label"/>
+
+                        <TextView
+                            android:id="@+id/tv_unit_attack_power"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="[[900]]"/>
+
+                    </LinearLayout>
+
+                    <!-- Magic Power Group -->
+                    <LinearLayout
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/u_liv_unit_stats_magic_power_label"/>
+
+                        <TextView
+                            android:id="@+id/tv_unit_magic_power"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="[[300]]"/>
+
+                    </LinearLayout>
+
+                    <!-- Defense Rating Group -->
+                    <LinearLayout
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/u_liv_unit_stats_defense_rating_label"/>
+                        <TextView
+                            android:id="@+id/tv_unt_defense_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="[[200]]"/>
+
+                    </LinearLayout>
+
+                    <!-- Spirit Rating Group -->
+                    <LinearLayout
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/u_liv_unit_stats_spirit_rating_label"/>
+
+                        <TextView
+                            android:id="@+id/tv_unit_spirit_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="[[180]]"/>
+
+                    </LinearLayout>
+
+                    <!-- Defense Broken Group -->
+                    <LinearLayout
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/u_liv_unit_stats_defense_broken_label"/>
+
+                        <TextView
+                            android:id="@+id/tv_unit_defense_broken"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="[[0]]"/>
+
+                    </LinearLayout>
+
+                    <!-- Spirit Broken Group -->
+                    <LinearLayout
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/u_liv_unit_stats_spirit_broken_label"/>
+
+                        <TextView
+                            android:id="@+id/tv_unit_spirit_broken"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="[[0]]"/>
+
+                    </LinearLayout>
+
+
+
+                </GridLayout>
+            </LinearLayout>
+
+
+            <!-- Separator -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+
+            <!-- Unit Stats Group -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vu_header_assigned_abilities"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/grp_button_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/ButtonBar"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/bn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vu_bn_edit_unit_text"
+            android:onClick="onEditActionClick"
+            android:layout_toLeftOf="@+id/bn_assign_abilities"
+            android:layout_toStartOf="@+id/bn_assign_abilities"/>
+
+        <Button
+            android:id="@+id/bn_assign_abilities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vu_bn_assign_abilities_text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="onAssignAbiltiiesClick"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

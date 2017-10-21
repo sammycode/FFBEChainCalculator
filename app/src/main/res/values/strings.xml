@@ -8,6 +8,7 @@
     <string name="bn_add_text" translatable="true">Add</string>
     <string name="bn_cancel_text" translatable="true">Cancel</string>
     <string name="bn_save_text" translatable="true">Save</string>
+    <string name="bn_edit_text" translatable="true">Edit</string>
 
     <string name="unittype_unit" translatable="true">Unit</string>
     <string name="unittype_badguy" translatable="true">Badguy</string>
@@ -64,5 +65,13 @@
     <string name="u_liv_unit_stats_spirit_rating_label" translatable="true">SPR</string>
     <string name="u_liv_unit_stats_defense_broken_label" translatable="true">DEF-B</string>
     <string name="u_liv_unit_stats_spirit_broken_label" translatable="true">SPR-B</string>
+
+    <!-- View Unit Activity -->
+    <string name="vu_header_unit_label">View Unit</string>
+    <string name="vu_tv_unit_name_label" translatable="true">Name</string>
+    <string name="vu_tv_unit_level_label" translatable="true">Level</string>
+    <string name="vu_header_assigned_abilities" translatable="true">Assigned Abilities</string>
+    <string name="vu_bn_edit_unit_text" translatable="true">Edit Unit</string>
+    <string name="vu_bn_assign_abilities_text" translatable="true">Assign Abilities</string>
 
 </resources>

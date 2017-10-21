@@ -23,19 +23,20 @@
         <activity
             android:name=".ManageUnitsActivity"
             android:label="@string/mu_activity_label"
-            android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop">
-            <!--Send user back to Main Activity when heading back-->
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity">
+
+            <!-- Send user back to Main Activity when heading back -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".EditUnitActivity"
             android:label="@string/eu_activity_label"
             android:parentActivityName=".ManageUnitsActivity">
-            <!--Send user back to Manage Units Activity when heading back-->
+
+            <!-- Send user back to Manage Units Activity when heading back -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ManageUnitsActivity" />
@@ -47,7 +48,7 @@
             android:authorities="ca.valleyforge.android.ffbechaincalculator"
             android:exported="false" />
 
-
+        <activity android:name=".ViewUnitActivity"></activity>
     </application>
 
 </manifest>
