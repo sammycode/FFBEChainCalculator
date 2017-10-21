@@ -54,6 +54,56 @@ public class FfbeChainContentProvider extends ContentProvider {
     public static final int ABILITY_WITH_ID = 301;
 
     /**
+     * The Stages Uri Match Identifier
+     */
+    public static final int STAGES = 400;
+
+    /**
+     * The Stage with ID Uri Match Identifier
+     */
+    public static final int STAGE_WITH_ID = 401;
+
+    /**
+     * The Stage Units Uri Match Identifier
+     */
+    public static final int STAGE_UNITS = 500;
+
+    /**
+     * The Stage Unit with ID Uri Match Identifier
+     */
+    public static final int STAGE_UNIT_WITH_ID = 501;
+
+    /**
+     * The Attacks Uri Match Identifier
+     */
+    public static final int ATTACKS = 600;
+
+    /**
+     * The Attack with ID Uri Match Identifier
+     */
+    public static final int ATTACK_WITH_ID = 601;
+
+    /**
+     * The Chains Uri Match Identifier
+     */
+    public static final int CHAINS = 700;
+
+    /**
+     * The Chain with ID Uri Match Identifier
+     */
+    public static final int CHAIN_WITH_ID = 701;
+
+    /**
+     * The Chain Hits Uri Match Identifier
+     */
+    public static final int CHAIN_HITS = 800;
+
+    /**
+     * The Chain Hit with ID Uri Match Identifier
+     */
+    public static final int CHAIN_HIT_WITH_ID = 801;
+
+    /**
      * The Uri Matcher
      */
     private static final UriMatcher _uriMatcher = buildUriMatcher();
@@ -83,7 +133,20 @@ public class FfbeChainContentProvider extends ContentProvider {
         uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_ABILITIES, ABILITIES);
         uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_ABILITIES + "/#", ABILITY_WITH_ID);
 
-        //TODO: Add additional matches as content types become available
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_STAGES, STAGES);
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_STAGES + "/#", STAGE_WITH_ID);
+
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_STAGE_UNITS, STAGE_UNITS);
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_STAGE_UNITS + "/#", STAGE_UNIT_WITH_ID);
+
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_ATTACKS, ATTACKS);
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_ATTACKS + "/#", ATTACK_WITH_ID);
+
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAINS, CHAINS);
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAINS + "/#", CHAIN_WITH_ID);
+
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAIN_HITS, CHAIN_HITS);
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAIN_HITS + "/#", CHAIN_HIT_WITH_ID);
 
         return uriMatcher;
     }
@@ -213,6 +276,154 @@ public class FfbeChainContentProvider extends ContentProvider {
 
                 break;
 
+            case STAGES:
+
+                results = db.query(
+                        FfbeChainContract.Stages.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+            case STAGE_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Stages._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                results = db.query(
+                        FfbeChainContract.Stages.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
+            case STAGE_UNITS:
+
+                results = db.query(
+                        FfbeChainContract.StageUnits.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+            case STAGE_UNIT_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.StageUnits._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                results = db.query(
+                        FfbeChainContract.StageUnits.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
+            case ATTACKS:
+
+                results = db.query(
+                        FfbeChainContract.Attacks.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
+            case ATTACK_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Attacks._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                results = db.query(
+                        FfbeChainContract.Attacks.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
+            case CHAINS:
+
+                results = db.query(
+                        FfbeChainContract.Chains.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
+            case CHAIN_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Chains._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                results = db.query(
+                        FfbeChainContract.Chains.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
+            case CHAIN_HITS:
+
+                results = db.query(
+                        FfbeChainContract.ChainHits.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
+            case CHAIN_HIT_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.ChainHits._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                results = db.query(
+                        FfbeChainContract.ChainHits.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }
@@ -267,6 +478,61 @@ public class FfbeChainContentProvider extends ContentProvider {
                 else
                 {
                     throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            case STAGES:
+                id = db.insert(FfbeChainContract.Stages.TABLE_NAME, null, values);
+                if (id > 0)
+                {
+                    results = ContentUris.withAppendedId(FfbeChainContract.Stages.CONTENT_URI, id);
+                }
+                else
+                {
+                    throw new SQLException("Failed to insert row into: " + uri);
+                }
+                break;
+            case STAGE_UNITS:
+                id = db.insert(FfbeChainContract.StageUnits.TABLE_NAME, null, values);
+                if (id > 0)
+                {
+                    results = ContentUris.withAppendedId(FfbeChainContract.StageUnits.CONTENT_URI, id);
+                }
+                else
+                {
+                    throw new SQLException("Failed to insert row into: " + uri);
+                }
+                break;
+            case ATTACKS:
+                id = db.insert(FfbeChainContract.Attacks.TABLE_NAME, null, values);
+                if (id > 0)
+                {
+                    results = ContentUris.withAppendedId(FfbeChainContract.Attacks.CONTENT_URI, id);
+                }
+                else
+                {
+                    throw new SQLException("Failed to insert row into: " + uri);
+                }
+                break;
+            case CHAINS:
+                id = db.insert(FfbeChainContract.Chains.TABLE_NAME, null, values);
+                if (id > 0)
+                {
+                    results = ContentUris.withAppendedId(FfbeChainContract.Chains.CONTENT_URI, id);
+                }
+                else
+                {
+                    throw new SQLException("Failed to insert row into: " + uri);
+                }
+                break;
+            case CHAIN_HITS:
+                id = db.insert(FfbeChainContract.ChainHits.TABLE_NAME, null, values);
+                if (id > 0)
+                {
+                    results = ContentUris.withAppendedId(FfbeChainContract.ChainHits.CONTENT_URI, id);
+                }
+                else
+                {
+                    throw new SQLException("Failed to insert row into: " + uri);
                 }
                 break;
             default:
@@ -326,6 +592,77 @@ public class FfbeChainContentProvider extends ContentProvider {
                 selectionArguments = new String[] { id };
 
                 rowsDeleted = db.delete(FfbeChainContract.Abilities.TABLE_NAME, selection, selectionArguments);
+                break;
+
+            case STAGES:
+
+                rowsDeleted = db.delete(FfbeChainContract.Stages.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case STAGE_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Stages._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsDeleted = db.delete(FfbeChainContract.Stages.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case STAGE_UNITS:
+
+                rowsDeleted = db.delete(FfbeChainContract.StageUnits.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case STAGE_UNIT_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.StageUnits._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsDeleted = db.delete(FfbeChainContract.StageUnits.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case ATTACKS:
+
+                rowsDeleted = db.delete(FfbeChainContract.Attacks.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case ATTACK_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Attacks._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsDeleted = db.delete(FfbeChainContract.Attacks.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case CHAINS:
+
+                rowsDeleted = db.delete(FfbeChainContract.Chains.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case CHAIN_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Chains._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsDeleted = db.delete(FfbeChainContract.Chains.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case CHAIN_HITS:
+
+                rowsDeleted = db.delete(FfbeChainContract.ChainHits.TABLE_NAME, selection, selectionArguments);
+
+                break;
+            case CHAIN_HIT_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.ChainHits._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsDeleted = db.delete(FfbeChainContract.ChainHits.TABLE_NAME, selection, selectionArguments);
+
                 break;
 
             default:
@@ -390,6 +727,62 @@ public class FfbeChainContentProvider extends ContentProvider {
                 rowsUpdated = db.update(FfbeChainContract.Abilities.TABLE_NAME, values, selection, selectionArguments);
 
                 break;
+
+            case STAGES:
+                rowsUpdated = db.update(FfbeChainContract.Stages.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            case STAGE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Stages._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsUpdated = db.update(FfbeChainContract.Stages.TABLE_NAME, values, selection, selectionArguments);
+                break;
+
+            case STAGE_UNITS:
+                rowsUpdated = db.update(FfbeChainContract.StageUnits.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            case STAGE_UNIT_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.StageUnits._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsUpdated = db.update(FfbeChainContract.StageUnits.TABLE_NAME, values, selection, selectionArguments);
+                break;
+
+            case ATTACKS:
+                rowsUpdated = db.update(FfbeChainContract.Attacks.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            case ATTACK_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Attacks._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsUpdated = db.update(FfbeChainContract.Attacks.TABLE_NAME, values, selection, selectionArguments);
+                break;
+
+            case CHAINS:
+                rowsUpdated = db.update(FfbeChainContract.Chains.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            case CHAIN_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Chains._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsUpdated = db.update(FfbeChainContract.Chains.TABLE_NAME, values, selection, selectionArguments);
+                break;
+
+            case CHAIN_HITS:
+                rowsUpdated = db.update(FfbeChainContract.ChainHits.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            case CHAIN_HIT_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.ChainHits._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsUpdated = db.update(FfbeChainContract.ChainHits.TABLE_NAME, values, selection, selectionArguments);
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }

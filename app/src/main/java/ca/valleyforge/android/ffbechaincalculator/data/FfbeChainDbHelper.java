@@ -81,6 +81,93 @@ public class FfbeChainDbHelper extends SQLiteOpenHelper {
                     " ); ";
 
     /**
+     * SQL Query - Drop Stages Table
+     */
+    private static final String DROP_STAGES_TABLE =
+            "DROP TABLE IF EXISTS " + FfbeChainContract.Stages.TABLE_NAME;
+
+    /**
+     * SQL Query - Create Stages Table
+     */
+    private static final String CREATE_STAGES_TABLE =
+            "CREATE TABLE " + FfbeChainContract.Stages.TABLE_NAME + " ( " +
+                    FfbeChainContract.Stages._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    FfbeChainContract.Stages.COLUMN_NAME + " TEXT NOT NULL, " +
+                    FfbeChainContract.Stages.COLUMN_BADGUY_ID + " INTEGER NOT NULL " +
+                    " ); ";
+
+    /**
+     * SQL Query - Drop Stage Units Table
+     */
+    private static final String DROP_STAGES_UNITS_TABLE =
+            "DROP TABLE IF EXISTS " + FfbeChainContract.StageUnits.TABLE_NAME;
+
+    /**
+     * SQL Query - Create Stage Units Table
+     */
+    private static final String CREATE_STAGE_UNITS_TABLE =
+            "CREATE TABLE " + FfbeChainContract.StageUnits.TABLE_NAME + " ( " +
+                    FfbeChainContract.StageUnits._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    FfbeChainContract.StageUnits.COLUMN_STAGE_ID + " INTEGER NOT NULL, " +
+                    FfbeChainContract.StageUnits.COLUMN_UNIT_ID + " INTEGER NOT NULL " +
+                    " ); ";
+
+    /**
+     * SQL Query - Drop Attacks Table
+     */
+    private static final String DROP_ATTACKS_TABLE =
+            "DROP TABLE IF EXISTS " + FfbeChainContract.Attacks.TABLE_NAME;
+
+    /**
+     * SQL Query - Create Attacks Table
+     */
+    private static final String CREATE_ATTACKS_TABLE =
+            "CREATE TABLE " + FfbeChainContract.Attacks.TABLE_NAME + " ( " +
+                    FfbeChainContract.Attacks._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    FfbeChainContract.Attacks.COLUMN_STAGE_ID + " INTEGER NOT NULL, " +
+                    FfbeChainContract.Attacks.COLUMN_UNIT_ID + " INTEGER NOT NULL, " +
+                    FfbeChainContract.Attacks.COLUMN_ABILITY_ID + " INTEGER NOT NULL " +
+                    " ); ";
+
+    /**
+     * SQL Query - Drop Chains Table
+     */
+    private static final String DROP_CHAINS_TABLE =
+            "DROP TABLE IF EXISTS " + FfbeChainContract.Chains.TABLE_NAME;
+
+    /**
+     * SQL Query - Create Chains Table
+     */
+    private static final String CREATE_CHAINS_TABLE =
+            "CREATE TABLE " + FfbeChainContract.Chains.TABLE_NAME + " ( " +
+                    FfbeChainContract.Chains._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    FfbeChainContract.Chains.COLUMN_STAGE_ID + " INTEGER NOT NULL, " +
+                    FfbeChainContract.Chains.COLUMN_TOTAL_DAMAGE_HIGH + " FLOAT NOT NULL, " +
+                    FfbeChainContract.Chains.COLUMN_TOTAL_DAMAGE_MID + " FLOAT NOT NULL, " +
+                    FfbeChainContract.Chains.COLUMN_TOTAL_DAMAGE_LOW + " FLOAT NOT NULL " +
+                    " ); ";
+
+    /**
+     * SQL Query - Drop Chain Hits Table
+     */
+    private static final String DROP_CHAIN_HITS_TABLE =
+            "DROP TABLE IF EXISTS " + FfbeChainContract.ChainHits.TABLE_NAME;
+
+    /**
+     * SQL Query - Create Chain Hits Table
+     */
+    private static final String CREATE_CHAIN_HITS_TABLE =
+            "CREATE TABLE " + FfbeChainContract.ChainHits.TABLE_NAME + " ( " +
+                    FfbeChainContract.ChainHits._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    FfbeChainContract.ChainHits.COLUMN_CHAIN_ID + " INTEGER NOT NULL, " +
+                    FfbeChainContract.ChainHits.COLUMN_ATTACK_ID + " INTEGER NOT NULL, " +
+                    FfbeChainContract.ChainHits.COLUMN_HIT_NUMBER + " INTEGER NOT NULL, " +
+                    FfbeChainContract.ChainHits.COLUMN_DAMAGE_HIGH + " FLOAT NOT NULL, " +
+                    FfbeChainContract.ChainHits.COLUMN_DAMAGE_MID + " FLOAT NOT NULL, " +
+                    FfbeChainContract.ChainHits.COLUMN_DAMAGE_LOW + " FLOAT NOT NULL " +
+                    " ); ";
+
+    /**
      * Initialize the FFBE Chain Calculation OpenDatabase Helper
      * @param context The Activity Context
      */
@@ -98,9 +185,36 @@ public class FfbeChainDbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_UNITS_TABLE);
         db.execSQL(CREATE_CHAIN_RULES_TABLE);
         db.execSQL(CREATE_ABILITIES_TABLE);
+        db.execSQL(CREATE_STAGES_TABLE);
+        db.execSQL(CREATE_STAGE_UNITS_TABLE);
+        db.execSQL(CREATE_ATTACKS_TABLE);
+        db.execSQL(CREATE_CHAINS_TABLE);
+        db.execSQL(CREATE_CHAIN_HITS_TABLE);
 
         //Seed Data
         seedChainRules(db);
+    }
+
+    /**
+     * Fires on Upgrade SQLite Database -
+     *  Since we arent at all concerned about upcrading versions of the database,
+     *  schema changes will drop and recreate the existing database to bring it up to
+     *  version.
+     * @param db                The Database
+     * @param currentVersion    The Current Version (Not Used)
+     * @param newVersion        The New Version (not Used)
+     */
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int currentVersion, int newVersion) {
+        db.execSQL(DROP_CHAIN_HITS_TABLE);
+        db.execSQL(DROP_CHAINS_TABLE);
+        db.execSQL(DROP_ATTACKS_TABLE);
+        db.execSQL(DROP_STAGES_UNITS_TABLE);
+        db.execSQL(DROP_STAGES_TABLE);
+        db.execSQL(DROP_ABILITIES_TABLE);
+        db.execSQL(DROP_CHAIN_RULES_TABLE);
+        db.execSQL(DROP_UNITS_TABLE);
+        onCreate(db);
     }
 
     /**
@@ -145,20 +259,4 @@ public class FfbeChainDbHelper extends SQLiteOpenHelper {
         db.endTransaction();
     }
 
-    /**
-     * Fires on Upgrade SQLite Database -
-     *  Since we arent at all concerned about upcrading versions of the database,
-     *  schema changes will drop and recreate the existing database to bring it up to
-     *  version.
-     * @param db                The Database
-     * @param currentVersion    The Current Version (Not Used)
-     * @param newVersion        The New Version (not Used)
-     */
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int currentVersion, int newVersion) {
-        db.execSQL(DROP_ABILITIES_TABLE);
-        db.execSQL(DROP_CHAIN_RULES_TABLE);
-        db.execSQL(DROP_UNITS_TABLE);
-        onCreate(db);
-    }
 }

@@ -41,7 +41,7 @@ public class FfbeChainContract {
     /**
      * The Stage Units Content Path
      */
-    public static final String PATH_STAGE_UNTS = "stage_units";
+    public static final String PATH_STAGE_UNITS = "stage_units";
 
     /**
      * The Attacks Content Path
@@ -277,7 +277,7 @@ public class FfbeChainContract {
          */
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon()
-                        .appendPath(PATH_STAGE_UNTS)
+                        .appendPath(PATH_STAGE_UNITS)
                         .build();
 
         /**
