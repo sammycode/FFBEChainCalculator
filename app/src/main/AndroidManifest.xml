@@ -10,15 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- The Main Acivity -->
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTop">
+        <!--
+            Temporarily switched calculations test activity to launcher default,
+            don't forget to switch this back...
+
+         -->
+
+        <activity android:name=".CalculationsTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- The Main Acivity -->
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop">
+
         </activity>
         <activity
             android:name=".ManageUnitsActivity"
@@ -41,10 +51,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ManageUnitsActivity" />
         </activity>
-
         <activity android:name=".ViewUnitActivity" />
         <activity android:name=".EditAbilityActivity" />
-        <activity android:name=".ManageAbilitiesActivity"></activity>
+        <activity android:name=".ManageAbilitiesActivity" />
 
         <!-- The Content Provider -->
         <provider

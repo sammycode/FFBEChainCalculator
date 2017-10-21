@@ -435,7 +435,7 @@ public class FfbeChainContentProvider extends ContentProvider {
      * Insert Content
      * @param uri The Content Uri
      * @param values The Content Values
-     * @return
+     * @return The Uri for the newly inserted record
      */
     @Nullable
     @Override
@@ -674,7 +674,7 @@ public class FfbeChainContentProvider extends ContentProvider {
 
     /**
      * Update Content
-     * @param uri
+     * @param uri The Content Uri
      * @param values The new content values
      * @param selection The Selection Expression
      * @param selectionArguments The Selection Arguments
