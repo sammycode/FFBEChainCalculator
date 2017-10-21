@@ -44,6 +44,16 @@ public class FfbeChainContentProvider extends ContentProvider {
     public static final int CHAIN_RULE_WITH_NAME = 202;
 
     /**
+     * The Abilities Uri Match Identifier
+     */
+    public static final int ABILITIES = 300;
+
+    /**
+     * The Ability with ID Uri Match Identifier
+     */
+    public static final int ABILITY_WITH_ID = 301;
+
+    /**
      * The Uri Matcher
      */
     private static final UriMatcher _uriMatcher = buildUriMatcher();
@@ -70,6 +80,8 @@ public class FfbeChainContentProvider extends ContentProvider {
         uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAIN_RULES + "/#", CHAIN_RULE_WITH_ID);
         uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAIN_RULES + "/name/*", CHAIN_RULE_WITH_NAME);
 
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_ABILITIES, ABILITIES);
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_ABILITIES + "/#", ABILITY_WITH_ID);
 
         //TODO: Add additional matches as content types become available
 
@@ -172,6 +184,35 @@ public class FfbeChainContentProvider extends ContentProvider {
                         null,
                         sortOder);
                 break;
+
+            case ABILITIES:
+                results = db.query(
+                        FfbeChainContract.Abilities.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
+            case ABILITY_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Abilities._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                results = db.query(
+                        FfbeChainContract.Abilities.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }
@@ -216,6 +257,18 @@ public class FfbeChainContentProvider extends ContentProvider {
                 {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
+                break;
+            case ABILITIES:
+                id = db.insert(FfbeChainContract.Abilities.TABLE_NAME, null, values);
+                if (id > 0)
+                {
+                    results = ContentUris.withAppendedId(FfbeChainContract.Abilities.CONTENT_URI, id);
+                }
+                else
+                {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }
@@ -261,6 +314,19 @@ public class FfbeChainContentProvider extends ContentProvider {
                 selectionArguments = new String[] { id };
 
                 rowsDeleted = db.delete(FfbeChainContract.ChainRules.TABLE_NAME, selection, selectionArguments);
+                break;
+
+            case ABILITIES:
+                rowsDeleted = db.delete(FfbeChainContract.Abilities.TABLE_NAME, selection, selectionArguments);
+                break;
+
+            case ABILITY_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Abilities._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsDeleted = db.delete(FfbeChainContract.Abilities.TABLE_NAME, selection, selectionArguments);
+                break;
 
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
@@ -310,6 +376,18 @@ public class FfbeChainContentProvider extends ContentProvider {
                 selectionArguments = new String[] { id };
 
                 rowsUpdated = db.update(FfbeChainContract.ChainRules.TABLE_NAME, values, selection, selectionArguments);
+
+                break;
+            case ABILITIES:
+                rowsUpdated = db.update(FfbeChainContract.Abilities.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            case ABILITY_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.Abilities._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsUpdated = db.update(FfbeChainContract.Abilities.TABLE_NAME, values, selection, selectionArguments);
 
                 break;
             default:

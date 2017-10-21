@@ -61,6 +61,26 @@ public class FfbeChainDbHelper extends SQLiteOpenHelper {
                     " ); ";
 
     /**
+     * SQL Query - Drop Abilities Table
+     */
+    private static final String DROP_ABILITIES_TABLE =
+            "DROP TABLE IF EXISTS " + FfbeChainContract.Abilities.TABLE_NAME;
+
+    /**
+     * SQL Query - Create Abilities Table
+     */
+    private static final String CREATE_ABILITIES_TABLE =
+            "CREATE TABLE " + FfbeChainContract.Abilities.TABLE_NAME + " ( " +
+                    FfbeChainContract.Abilities._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    FfbeChainContract.Abilities.COLUMN_NAME + " TEXT NOT NULL, " +
+                    FfbeChainContract.Abilities.COLUMN_DAMAGE_MODIFIER + " FLOAT NOT NULL, " +
+                    FfbeChainContract.Abilities.COLUMN_IGNORE_DEFENSE_MODIFIER + " FLOAT NOT NULL, " +
+                    FfbeChainContract.Abilities.COLUMN_IGNORE_SPIRIT_MODIFIER + " FLOAT NOT NULL, " +
+                    FfbeChainContract.Abilities.COLUMN_NUMBER_OF_HITS + " INTEGER NOT NULL, " +
+                    FfbeChainContract.Abilities.COLUMN_ABILITY_TYPE + " TEXT NOT NULL " +
+                    " ); ";
+
+    /**
      * Initialize the FFBE Chain Calculation OpenDatabase Helper
      * @param context The Activity Context
      */
@@ -77,6 +97,7 @@ public class FfbeChainDbHelper extends SQLiteOpenHelper {
         //Create Table Structure
         db.execSQL(CREATE_UNITS_TABLE);
         db.execSQL(CREATE_CHAIN_RULES_TABLE);
+        db.execSQL(CREATE_ABILITIES_TABLE);
 
         //Seed Data
         seedChainRules(db);
@@ -135,6 +156,7 @@ public class FfbeChainDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int currentVersion, int newVersion) {
+        db.execSQL(DROP_ABILITIES_TABLE);
         db.execSQL(DROP_CHAIN_RULES_TABLE);
         db.execSQL(DROP_UNITS_TABLE);
         onCreate(db);
