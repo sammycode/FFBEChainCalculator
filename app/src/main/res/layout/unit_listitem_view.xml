@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/listitemview_item_vertical_margin"
     android:layout_marginBottom="@dimen/listitemview_item_vertical_margin"
     android:layout_marginLeft="@dimen/listitemview_item_horizontal_margin"
@@ -15,7 +15,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="130dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/u_liv_tv_unit_name_label"
             android:textStyle="bold"/>
@@ -34,7 +34,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="130dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/u_liv_tv_unit_level_label"
             android:textStyle="bold"/>

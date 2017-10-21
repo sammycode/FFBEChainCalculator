@@ -84,13 +84,13 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
         holder.itemView.setTag(unitID);
 
         holder._tvUnitName.setText(_cursor.getString(nameIndex));
-        holder._tvUnitLevel.setText(_cursor.getString(levelIndex));
-        holder._tvAttackPower.setText(_cursor.getString(attackPowerIndex));
-        holder._tvMagicPower.setText(_cursor.getString(magicPowerIndex));
-        holder._tvDefenseRating.setText(_cursor.getString(defRatingIndex));
-        holder._tvSpiritRating .setText(_cursor.getString(sprRatingIndex));
-        holder._tvDefenseBroken.setText(_cursor.getString(defBrokenIndex));
-        holder._tvSpiritBroken.setText(_cursor.getString(sprBrokenIndex));
+        holder._tvUnitLevel.setText(String.format("%.0f", _cursor.getFloat(levelIndex)));
+        holder._tvAttackPower.setText(String.format("%.0f", _cursor.getFloat(attackPowerIndex)));
+        holder._tvMagicPower.setText(String.format("%.0f", _cursor.getFloat(magicPowerIndex)));
+        holder._tvDefenseRating.setText(String.format("%.0f", _cursor.getFloat(defRatingIndex)));
+        holder._tvSpiritRating .setText(String.format("%.0f", _cursor.getFloat(sprRatingIndex)));
+        holder._tvDefenseBroken.setText(String.format("%.0f", _cursor.getFloat(defBrokenIndex)));
+        holder._tvSpiritBroken.setText(String.format("%.0f", _cursor.getFloat(sprBrokenIndex)));
 
     }
 

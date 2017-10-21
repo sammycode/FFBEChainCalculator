@@ -1,12 +1,21 @@
 package ca.valleyforge.android.ffbechaincalculator;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import ca.valleyforge.android.ffbechaincalculator.adapters.UnitListAdapter;
+import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
 
 /**
  * The Manage Units Activity
@@ -20,7 +29,8 @@ import android.widget.TextView;
  * will serve as a filter, to enable this activity to be used for both purposes
  *
  */
-public class ManageUnitsActivity extends AppCompatActivity {
+public class ManageUnitsActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     /**
      * The Log Tag
@@ -48,6 +58,16 @@ public class ManageUnitsActivity extends AppCompatActivity {
     private static final String DEFAULT_UNIT_CLASS = UNIT_CLASS_UNIT;
 
     /**
+     * The Units List Loader
+     */
+    private static final int UNITS_LIST_LOADER = 0;
+
+    /**
+     * The Unit Lists Adapter
+     */
+    private UnitListAdapter _unitsListAdapater;
+
+    /**
      * The Unit Class for filtering purposes
      */
     private String _unitClass;
@@ -58,6 +78,11 @@ public class ManageUnitsActivity extends AppCompatActivity {
      * was invoked
      */
     TextView _tvUnitType;
+
+    /**
+     * The Units Recycler View
+     */
+    RecyclerView _rvUnits;
 
     /**
      * Fires on Activity Create
@@ -93,6 +118,24 @@ public class ManageUnitsActivity extends AppCompatActivity {
         }
         _tvUnitType.setText(getUnitTypeFriendlyName(_unitClass));
 
+        //Arm the Recycler View to display Units
+        _rvUnits = (RecyclerView) findViewById(R.id.rv_units);
+        _rvUnits.setLayoutManager(new LinearLayoutManager(this));
+
+        _unitsListAdapater = new UnitListAdapter(this);
+        _rvUnits.setAdapter(_unitsListAdapater);
+
+        //Arm the Loader, to load the Recycler View
+        getSupportLoaderManager().initLoader(UNITS_LIST_LOADER, null, this);
+    }
+
+    /**
+     * Fires after activity has been paused or restarted
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportLoaderManager().restartLoader(UNITS_LIST_LOADER, null, this);
     }
 
     /**
@@ -123,5 +166,99 @@ public class ManageUnitsActivity extends AppCompatActivity {
         intent.putExtra(EditUnitActivity.EXTRA_EDIT_MODE, EditUnitActivity.EDIT_MODE_ADD);
         intent.putExtra(EXTRA_UNIT_CLASS, _unitClass);
         startActivity(intent);
+    }
+
+    /**
+     * Fires on Create Cursor
+     * @param id The Loader Identifier
+     * @param loaderArguments The Loader Arguments
+     * @return The Loader
+     */
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle loaderArguments) {
+        return new AsyncTaskLoader<Cursor>(this) {
+
+            /**
+             * The Units Cursor
+             */
+            Cursor _unitsCursor;
+
+            /**
+             * Fires when the loader first starts
+             */
+            @Override
+            protected void onStartLoading() {
+                if (_unitsCursor != null)
+                {
+                    deliverResult(_unitsCursor);
+                }
+                else
+                {
+                    forceLoad();
+                }
+            }
+
+            /**
+             * The Job that fires in the background
+             * @return The Cursor
+             */
+            @Override
+            public Cursor loadInBackground() {
+                try
+                {
+                    /*
+                        Because this Activity is used for multiple list types, User Units and BadGuys
+                        we have armed the activity with a unit class.  The Unit Class is a column
+                        in the table, so we are building a selection expression which will filter
+                        to those units.
+                        Basically, if you entered this screen as managing units, it will show units,
+                        whereas if you entered this screen managing badguys, it will show badguys
+                     */
+                    String selectionExpression = FfbeChainContract.Units.COLUMN_UNIT_CLASS + "=?";
+                    String[] selectionArguments = new String[] { _unitClass };
+                    return getContentResolver()
+                            .query(FfbeChainContract.Units.CONTENT_URI,
+                                    null,
+                                    selectionExpression,
+                                    selectionArguments,
+                                    FfbeChainContract.Units.COLUMN_NAME);
+                }
+                catch (Exception caught)
+                {
+                    Log.e(TAG, "Failed to load Units");
+                    caught.printStackTrace();
+                    return null;
+                }
+            }
+
+            /**
+             * Sends result of the load to the registered listener
+             * @param data The Data
+             */
+            public void deliverResult(Cursor data) {
+                _unitsCursor = data;
+                super.deliverResult(data);
+            }
+
+        };
+    }
+
+    /**
+     * Fires when the loader has finished its work
+     * @param loader The Loader
+     * @param data The Data
+     */
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        _unitsListAdapater.swapCursor(data);
+    }
+
+    /**
+     * Fires when the loader has been reset
+     * @param loader The Loader
+     */
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        _unitsListAdapater.swapCursor(null);
     }
 }
