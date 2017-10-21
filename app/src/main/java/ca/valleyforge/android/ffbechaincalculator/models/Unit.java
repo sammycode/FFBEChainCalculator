@@ -16,16 +16,6 @@ public class Unit {
     private int _recordIdentifier;
 
     /**
-     * The Record Position in the cursor, if loaded from the cursor
-     */
-    private int _recordPosition;
-
-    /**
-     * The Cursor used to load the record
-     */
-    private Cursor _cursor;
-
-    /**
      * The ID Index
      */
     private int _idIndex;
@@ -154,10 +144,8 @@ public class Unit {
      * @param position The Position within the cursor
      */
     public Unit(Cursor cursor, int position) {
-        _recordPosition = position;
-        _cursor = cursor;
-        assignColumnIndexes(_cursor);
-        assignFieldValues(_cursor, _recordPosition);
+        assignColumnIndexes(cursor);
+        assignFieldValues(cursor, position);
     }
 
     /**
@@ -275,7 +263,7 @@ public class Unit {
      * Sets the Unit Attack Power
      * @param attackPower The Unit Attack Power
      */
-    public void set_attackPower(float attackPower) {
+    public void setAttackPower(float attackPower) {
         _attackPower = attackPower;
     }
 
@@ -339,7 +327,7 @@ public class Unit {
      * Sets the Unit Defense Brokeen Percent
      * @param defenseBrokenPercent The Unit Defense Broken Percent
      */
-    public void set_defenseBrokenPercent(float defenseBrokenPercent) {
+    public void setDefenseBrokenPercent(float defenseBrokenPercent) {
         _defenseBrokenPercent = defenseBrokenPercent;
     }
 

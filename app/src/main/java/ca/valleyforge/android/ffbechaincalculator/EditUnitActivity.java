@@ -1,7 +1,6 @@
 package ca.valleyforge.android.ffbechaincalculator;
 
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
+import ca.valleyforge.android.ffbechaincalculator.models.Unit;
 
 /**
  * The Edit Unit Activity
@@ -37,6 +37,11 @@ public class EditUnitActivity extends AppCompatActivity {
      * The Logger Tag
      */
     private static final String TAG = EditUnitActivity.class.getSimpleName();
+
+    /**
+     * The Bound Unit
+     */
+    private Unit _boundUnit;
 
     /**
      * The Edit Mode Extra Key
@@ -128,7 +133,7 @@ public class EditUnitActivity extends AppCompatActivity {
 
     /**
      * Fires on Create Activity
-     * @param savedInstanceState
+     * @param savedInstanceState The Saved Instance State
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +164,11 @@ public class EditUnitActivity extends AppCompatActivity {
         //If we are editing a unit, we need to pull the current data from the content provider
         if (EDIT_MODE_EDIT.equals(_editMode)) {
             loadUnitData();
+        }
+        else
+        {
+            //Since we aren't loading an existing unit, instead lets create a new one
+            _boundUnit = new Unit();
         }
 
     }
@@ -204,7 +214,7 @@ public class EditUnitActivity extends AppCompatActivity {
     /**
      * Gets the Activity Title, based on edit mode
      * @param editMode The Edit Mode
-     * @return
+     * @return The Activity Title
      */
     private String getActivityTitle(String editMode) {
         if (EDIT_MODE_ADD.equals(editMode))
@@ -261,31 +271,32 @@ public class EditUnitActivity extends AppCompatActivity {
     /**
      * Gets Existing Record Unit Data,
      * For purposes of editing
-     * @return The Cursor containing the unit data
      */
     private void loadUnitData() {
         Uri recordUri = ContentUris
                 .withAppendedId(FfbeChainContract.Units.CONTENT_URI, _unitRecordID);
-        Cursor unitData = getContentResolver().query(recordUri, null, null, null, null);
+        try
+        {
+            Cursor unitData = getContentResolver().query(recordUri, null, null, null, null);
+            _boundUnit  = new Unit(unitData, 0); //Might get an error here if the position is not 0 based
+            unitData.close();
 
-        int nameIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_NAME);
-        int levelIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_LEVEL);
-        int attackPowerIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_ATTACK_POWER);
-        int magicPowerIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_MAGIC_POWER);
-        int defRatingIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_DEFENSE_RATING);
-        int sprRatingIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_SPIRIT_RATING);
-        int defBrokenIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_DEFENCE_BROKEN);
-        int sprBrokenIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_SPIRIT_BROKEN);
+            _etUnitName.setText(_boundUnit.getName());
+            _etUnitLevel.setText(String.format("%.0f", _boundUnit.getLevel()));
+            _etAttackPower.setText(String.format("%.0f", _boundUnit.getAttackPower()));
+            _etMagicPower.setText(String.format("%.0f", _boundUnit.getMagicPower()));
+            _etDefenseRating.setText(String.format("%.0f", _boundUnit.getDefenseRating()));
+            _etSpiritRating.setText(String.format("%.0f", _boundUnit.getSpiritRating()));
+            _etDefenseBroken.setText(String.format("%.0f", _boundUnit.getDefenseBrokenPercent()));
+            _etSpiritBroken.setText(String.format("%.0f", _boundUnit.getSpiritBrokenPercent()));
 
-        unitData.moveToFirst();
-        _etUnitName.setText(unitData.getString(nameIndex));
-        _etUnitLevel.setText(String.format("%.0f", getFloatFromString(unitData.getString(levelIndex))));
-        _etAttackPower.setText(String.format("%.0f", getFloatFromString(unitData.getString(attackPowerIndex))));
-        _etMagicPower.setText(String.format("%.0f", getFloatFromString(unitData.getString(magicPowerIndex))));
-        _etDefenseRating.setText(String.format("%.0f", getFloatFromString(unitData.getString(defRatingIndex))));
-        _etSpiritRating.setText(String.format("%.0f", getFloatFromString(unitData.getString(sprRatingIndex))));
-        _etDefenseBroken.setText(String.format("%.0f", getFloatFromString(unitData.getString(defBrokenIndex))));
-        _etSpiritBroken.setText(String.format("%.0f", getFloatFromString(unitData.getString(sprBrokenIndex))));
+        }
+        catch (Exception caught)
+        {
+            Log.e(TAG, "Unable to load Unit Data");
+            caught.printStackTrace();
+            throw caught;
+        }
     }
 
 
@@ -300,30 +311,21 @@ public class EditUnitActivity extends AppCompatActivity {
                 .show();
             return;
         }
-        //Do not really need to validate other numeric fields, since we are defaulting to 0
-        ContentValues values = new ContentValues();
-        values.put(FfbeChainContract.Units.COLUMN_UNIT_CLASS, _unitClass);
-        values.put(FfbeChainContract.Units.COLUMN_NAME,
-                _etUnitName.getText().toString());
-        values.put(FfbeChainContract.Units.COLUMN_UNIT_LEVEL,
-                getFloatValueFromEditText(_etUnitLevel));
-        values.put(FfbeChainContract.Units.COLUMN_UNIT_ATTACK_POWER,
-                getFloatValueFromEditText(_etAttackPower));
-        values.put(FfbeChainContract.Units.COLUMN_UNIT_MAGIC_POWER,
-                getFloatValueFromEditText(_etMagicPower));
-        values.put(FfbeChainContract.Units.COLUMN_UNIT_DEFENSE_RATING,
-                getFloatValueFromEditText(_etDefenseRating));
-        values.put(FfbeChainContract.Units.COLUMN_UNIT_SPIRIT_RATING,
-                getFloatValueFromEditText(_etSpiritRating));
-        values.put(FfbeChainContract.Units.COLUMN_UNIT_DEFENCE_BROKEN,
-                getFloatValueFromEditText(_etDefenseBroken));
-        values.put(FfbeChainContract.Units.COLUMN_UNIT_SPIRIT_BROKEN,
-                getFloatValueFromEditText(_etSpiritBroken));
+
+        _boundUnit.setUnitClass(_unitClass);
+        _boundUnit.setName(_etUnitName.getText().toString());
+        _boundUnit.setLevel(getFloatValueFromEditText(_etUnitLevel));
+        _boundUnit.setAttackPower(getFloatValueFromEditText(_etAttackPower));
+        _boundUnit.setMagicPower(getFloatValueFromEditText(_etMagicPower));
+        _boundUnit.setDefenseRating(getFloatValueFromEditText(_etDefenseRating));
+        _boundUnit.setSpiritRating(getFloatValueFromEditText(_etSpiritRating));
+        _boundUnit.setDefenseBrokenPercent(getFloatValueFromEditText(_etDefenseBroken));
+        _boundUnit.setSpiritBrokenPercent(getFloatValueFromEditText(_etSpiritBroken));
 
         if (EDIT_MODE_ADD.equals(_editMode))
         {
             Uri result = getContentResolver().insert(FfbeChainContract.Units.CONTENT_URI,
-                    values);
+                    _boundUnit.getContentValues());
             Toast.makeText(this, "Saved Unit Data: " + result, Toast.LENGTH_SHORT)
                     .show();
         }
@@ -333,7 +335,7 @@ public class EditUnitActivity extends AppCompatActivity {
                     .withAppendedId(FfbeChainContract.Units.CONTENT_URI, _unitRecordID);
             int recordsAffected = getContentResolver().update(
                     recordUri,
-                    values,
+                    _boundUnit.getContentValues(),
                     null,
                     null);
             if (recordsAffected == 1)
