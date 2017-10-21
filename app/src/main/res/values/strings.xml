@@ -74,4 +74,26 @@
     <string name="vu_bn_edit_unit_text" translatable="true">Edit Unit</string>
     <string name="vu_bn_assign_abilities_text" translatable="true">Assign Abilities</string>
 
+    <!--Edit Ability Activity-->
+    <string name="ea_activity_label" translatable="true">Unit Editor</string>
+    <string name="ea_new_activity_label" translatable="true">Ability Editor: Create</string>
+    <string name="ea_edit_activity_label" translatable="true">Ability Editor: Edit</string>
+
+    <string name="ea_et_ability_name_label" translatable="true">Ability Name</string>
+    <string name="ea_et_ability_name_hint" translatable="true">ability name</string>
+
+    <string name="ea_et_damage_modifier_label" translatable="true">Damage Modifier</string>
+    <string name="ea_et_damage_modifier_hint" translatable="true">damage modifier rating</string>
+
+    <string name="ea_et_ignore_defense_label" translatable="true">Ignore Defense</string>
+    <string name="ea_et_ignore_defense_hint" translatable="true">ignore defense rating</string>
+
+    <string name="ea_et_ignore_spirit_label" translatable="true">Ignore Spirit</string>
+    <string name="ea_et_ignore_spirit_hint" translatable="true">ignore spirit rating</string>
+
+    <string name="ea_et_number_hits_label" translatable="true">Number of Hits</string>
+    <string name="ea_et_number_hits_hint" translatable="true">number of hits</string>
+
+    <string name="ea_dd_ability_type_label" translatable="true">Ability Type</string>
+
 </resources>

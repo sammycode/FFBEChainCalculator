@@ -48,7 +48,9 @@
             android:authorities="ca.valleyforge.android.ffbechaincalculator"
             android:exported="false" />
 
-        <activity android:name=".ViewUnitActivity"></activity>
+        <activity android:name=".ViewUnitActivity" />
+        <activity android:name=".EditAbilityActivity" />
+        <activity android:name=".ManageAbilitiesActivity"></activity>
     </application>
 
 </manifest>

@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.valleyforge.android.ffbechaincalculator.EditUnitActivity"
-    android:orientation="vertical">
+    tools:context="ca.valleyforge.android.ffbechaincalculator.EditAbilityActivity">
 
     <FrameLayout
         android:id="@+id/grp_header"
@@ -15,10 +14,10 @@
         android:layout_alignParentTop="true">
 
         <TextView
-            android:id="@+id/tv_edit_unit_header"
+            android:id="@+id/tv_edit_ability_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="[[Edit Unit Header Text]]"
+            android:text="[[Edit Unit Ability Text]]"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -27,7 +26,6 @@
             android:layout_height="5dp" />
 
     </FrameLayout>
-
 
     <FrameLayout
         android:id="@+id/grp_fields"
@@ -45,170 +43,145 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- The Unit Name Input Group -->
+                <!-- The Ability Name Input Group -->
                 <LinearLayout
-                    android:id="@+id/grp_unit_name"
+                    android:id="@+id/grp_ability_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/eu_et_unit_name_label"
+                        android:text="@string/ea_et_ability_name_label"
                         android:textStyle="bold"/>
 
                     <EditText
-                        android:id="@+id/et_unit_name"
+                        android:id="@+id/et_ability_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/eu_et_unit_name_hint"
+                        android:hint="@string/ea_et_ability_name_hint"
                         android:inputType="text"/>
 
                 </LinearLayout>
 
-                <!-- The Unit Level Group -->
+                <!-- The Ability Type Input Group -->
                 <LinearLayout
-                    android:id="@+id/grp_unit_level"
+                    android:id="@+id/grp_ability_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/eu_et_unit_level_label"
-                        android:textStyle="bold" />
+                        android:text="@string/ea_dd_ability_type_label"
+                        android:textStyle="bold"/>
 
-                    <EditText
-                        android:id="@+id/et_unit_level"
+                    <!--
+                        I'm not entirely satisfied with how this dropdown is lining up.
+                        I added this Linear Layout here to give some context to what the user is selecting,
+                        there is a label above it, but something doesn't feel quite right about it...
+                        I dunno, just getting this in here for now, we can fix it later...
+                    -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/ea_dd_ability_type_label"
+                            android:textSize="22sp"
+                            android:gravity="center_vertical"/>
+
+                        <Spinner
+                            android:id="@+id/ea_sp_ability_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:drawable/btn_dropdown"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- The Damage Modifier Input Group -->
+                <LinearLayout
+                    android:id="@+id/grp_damage_modifier"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/eu_et_unit_level_hint"
+                        android:text="@string/ea_et_damage_modifier_label"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/et_damage_modifier"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/ea_et_damage_modifier_hint"
                         android:inputType="number"/>
 
                 </LinearLayout>
 
-                <!-- The Unit Attack Power Group -->
+                <!-- The Ignore Defense Input Group -->
                 <LinearLayout
-                    android:id="@+id/grp_unit_attack_power"
+                    android:id="@+id/grp_ignore_defense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/eu_et_unit_attack_power_label"
-                        android:textStyle="bold" />
+                        android:text="@string/ea_et_ignore_defense_label"
+                        android:textStyle="bold"/>
 
                     <EditText
-                        android:id="@+id/et_unit_attack_power"
+                        android:id="@+id/et_ignore_defense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/eu_et_unit_attack_power_hint"
+                        android:hint="@string/ea_et_ignore_defense_hint"
                         android:inputType="number"/>
 
                 </LinearLayout>
 
-                <!-- The Unit Magic Power Group -->
+                <!-- The Ignore Spirit Input Group -->
                 <LinearLayout
-                    android:id="@+id/grp_unit_magic_power"
+                    android:id="@+id/grp_ignore_spirit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/eu_et_unit_magic_power_label"
-                        android:textStyle="bold" />
+                        android:text="@string/ea_et_ignore_spirit_label"
+                        android:textStyle="bold"/>
 
                     <EditText
-                        android:id="@+id/et_unit_magic_power"
+                        android:id="@+id/et_ignore_spirit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/eu_et_unit_magic_power_hint"
+                        android:hint="@string/ea_et_ignore_spirit_hint"
                         android:inputType="number"/>
 
                 </LinearLayout>
 
-                <!-- The Unit Defense Rating Group -->
+                <!-- The Number of Hits Input Group -->
                 <LinearLayout
-                    android:id="@+id/grp_unit_defense_rating"
+                    android:id="@+id/grp_number_hits"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/eu_et_unit_defense_rating_label"
-                        android:textStyle="bold" />
+                        android:text="@string/ea_et_number_hits_label"
+                        android:textStyle="bold"/>
 
                     <EditText
-                        android:id="@+id/et_unit_defense_rating"
+                        android:id="@+id/et_number_hits"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/eu_et_unit_defense_rating_hint"
-                        android:inputType="number"/>
-
-                </LinearLayout>
-
-                <!-- The Unit Spirit Rating Group -->
-                <LinearLayout
-                    android:id="@+id/grp_unit_spirit_rating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/eu_et_unit_spirit_rating_label"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/et_unit_spirit_rating"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/eu_et_unit_spirit_rating_hint"
-                        android:inputType="number"/>
-
-                </LinearLayout>
-
-                <!-- The Unit Defense Broken Group -->
-                <LinearLayout
-                    android:id="@+id/grp_unit_defense_broken"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/eu_et_unit_defense_broken_label"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/et_unit_defense_broken"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/eu_et_unit_defense_broken_hint"
-                        android:inputType="number"/>
-
-                </LinearLayout>
-
-                <!-- The Unit Spirit Broken Group -->
-                <LinearLayout
-                    android:id="@+id/grp_unit_spirit_broken"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/eu_et_unit_spirit_broken_label"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/et_unit_spirit_broken"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/eu_et_unit_spirit_broken_hint"
+                        android:hint="@string/ea_et_number_hits_hint"
                         android:inputType="number"/>
 
                 </LinearLayout>
