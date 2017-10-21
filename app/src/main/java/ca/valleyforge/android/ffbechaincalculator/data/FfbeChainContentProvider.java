@@ -29,6 +29,21 @@ public class FfbeChainContentProvider extends ContentProvider {
     public static final int UNIT_WITH_ID = 101;
 
     /**
+     * The Chain Rules Uri Match Identifier
+     */
+    public static final int CHAIN_RULES = 200;
+
+    /**
+     * The Chain Rule with ID Uri Match Identifier
+     */
+    public static final int CHAIN_RULE_WITH_ID = 201;
+
+    /**
+     * The Chain Rule with Name Uri Match Identifier
+     */
+    public static final int CHAIN_RULE_WITH_NAME = 202;
+
+    /**
      * The Uri Matcher
      */
     private static final UriMatcher _uriMatcher = buildUriMatcher();
@@ -45,8 +60,16 @@ public class FfbeChainContentProvider extends ContentProvider {
     private static UriMatcher buildUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         //Add Unit Content Uri Matches
+
+        //Units
         uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_UNITS, UNITS);
         uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_UNITS + "/#", UNIT_WITH_ID);
+
+        //Chain Rules
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAIN_RULES, CHAIN_RULES);
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAIN_RULES + "/#", CHAIN_RULE_WITH_ID);
+        uriMatcher.addURI(FfbeChainContract.AUTHORITY, FfbeChainContract.PATH_CHAIN_RULES + "/name/*", CHAIN_RULE_WITH_NAME);
+
 
         //TODO: Add additional matches as content types become available
 
@@ -110,6 +133,45 @@ public class FfbeChainContentProvider extends ContentProvider {
                         null,
                         sortOder);
                 break;
+            case CHAIN_RULES:
+                results = db.query(
+                        FfbeChainContract.ChainRules.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+                break;
+            case CHAIN_RULE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.ChainRules._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                results = db.query(
+                        FfbeChainContract.ChainRules.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+                break;
+
+            case CHAIN_RULE_WITH_NAME:
+                id = uri.getPathSegments().get(3);
+                selection = FfbeChainContract.ChainRules.COLUMN_NAME + "=?";
+                selectionArguments = new String[] { id };
+
+                results = db.query(
+                        FfbeChainContract.ChainRules.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOder);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }
@@ -144,6 +206,16 @@ public class FfbeChainContentProvider extends ContentProvider {
                     throw new SQLException("Failed to insert row into: " + uri);
                 }
                 break;
+            case CHAIN_RULES:
+                id = db.insert(FfbeChainContract.ChainRules.TABLE_NAME, null, values);
+                if (id > 0)
+                {
+                    results = ContentUris.withAppendedId(FfbeChainContract.ChainRules.CONTENT_URI, id);
+                }
+                else
+                {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }
@@ -180,6 +252,16 @@ public class FfbeChainContentProvider extends ContentProvider {
                 rowsDeleted = db.delete(FfbeChainContract.Units.TABLE_NAME, selection, selectionArguments);
 
                 break;
+            case CHAIN_RULES:
+                rowsDeleted = db.delete(FfbeChainContract.ChainRules.TABLE_NAME, selection, selectionArguments);
+                break;
+            case CHAIN_RULE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.ChainRules._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsDeleted = db.delete(FfbeChainContract.ChainRules.TABLE_NAME, selection, selectionArguments);
+
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }
@@ -216,6 +298,18 @@ public class FfbeChainContentProvider extends ContentProvider {
                 selectionArguments = new String[] { id };
 
                 rowsUpdated = db.update(FfbeChainContract.Units.TABLE_NAME, values, selection, selectionArguments);
+
+                break;
+            case CHAIN_RULES:
+                rowsUpdated = db.update(FfbeChainContract.ChainRules.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            case CHAIN_RULE_WITH_ID:
+
+                id = uri.getPathSegments().get(1);
+                selection = FfbeChainContract.ChainRules._ID + "=?";
+                selectionArguments = new String[] { id };
+
+                rowsUpdated = db.update(FfbeChainContract.ChainRules.TABLE_NAME, values, selection, selectionArguments);
 
                 break;
             default:
