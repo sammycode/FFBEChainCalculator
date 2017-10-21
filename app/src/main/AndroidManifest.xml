@@ -42,15 +42,17 @@
                 android:value=".ManageUnitsActivity" />
         </activity>
 
+        <activity android:name=".ViewUnitActivity" />
+        <activity android:name=".EditAbilityActivity" />
+        <activity android:name=".ManageAbilitiesActivity"></activity>
+
         <!-- The Content Provider -->
         <provider
             android:name=".data.FfbeChainContentProvider"
             android:authorities="ca.valleyforge.android.ffbechaincalculator"
             android:exported="false" />
 
-        <activity android:name=".ViewUnitActivity" />
-        <activity android:name=".EditAbilityActivity" />
-        <activity android:name=".ManageAbilitiesActivity"></activity>
+
     </application>
 
 </manifest>

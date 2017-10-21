@@ -34,6 +34,31 @@ public class FfbeChainContract {
     public static final String PATH_ABILITIES = "abilities";
 
     /**
+     * The Stages Content Path
+     */
+    public static final String PATH_STAGES = "stages";
+
+    /**
+     * The Stage Units Content Path
+     */
+    public static final String PATH_STAGE_UNTS = "stage_units";
+
+    /**
+     * The Attacks Content Path
+     */
+    public static final String PATH_ATTACKS = "attacks";
+
+    /**
+     * The Chains Content Path
+     */
+    public static final String PATH_CHAINS = "chains";
+
+    /**
+     * The Chain Hits Content Path
+     */
+    public static final String PATH_CHAIN_HITS = "chain_hits";
+
+    /**
      * The Units Data Contract
      */
     public static final class Units implements BaseColumns {
@@ -195,6 +220,205 @@ public class FfbeChainContract {
          * The Ability Type, Column Name
          */
         public static final String COLUMN_ABILITY_TYPE = "ability_type";
+
+    }
+
+    /**
+     * The Stages Data Contract
+     *
+     * A stage is a configuration, or setup for a chain to simulate.
+     * This will have to be broken down in a relative fashion, as we're backing this in an
+     * relational database format.
+     *
+     * So this represents a stage header, this will have descriptive meta-data about the stage,
+     * and will be the anhor point for assigned units, a badguy as well as the calculated chain
+     *
+     * Because Abilities are being assigned to a unit, at least for now, im not certain how we
+     * will handle "dirty" configurations.  In other words, if you change the configuration of units
+     * unit stats or the stats on the badguy, what should happen to the chain data.
+     *
+     * I guess for the time being, this will only support one calculated chain at a time, and at the
+     * time of modifying any part of it's configuration, we simply drop the chain calculation
+     */
+    public static final class Stages implements BaseColumns {
+
+        /**
+         * The Stages Content Uri
+         */
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon()
+                        .appendPath(PATH_STAGES)
+                        .build();
+
+        /**
+         * The Table Name
+         */
+        public static final String TABLE_NAME = "stages";
+
+        /**
+         * The Name, Column Name
+         */
+        public static final String COLUMN_NAME = "name";
+
+        /**
+         * The Badguy Identifier, Column Name
+         */
+        public static final String COLUMN_BADGUY_ID = "badguy_id";
+
+    }
+
+    /**
+     * The Stage Units Data Contact
+     */
+    public static final class StageUnits implements BaseColumns {
+
+        /**
+         * The Stage Units Content Uri
+         */
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon()
+                        .appendPath(PATH_STAGE_UNTS)
+                        .build();
+
+        /**
+         * The Table Name
+         */
+        public static final String TABLE_NAME = "stage_units";
+
+        /**
+         * The Stage Identifier, Column Name
+         */
+        public static final String COLUMN_STAGE_ID = "stage_id";
+
+        /**
+         * The Unit Identifier, Column Name
+         */
+        public static final String COLUMN_UNIT_ID = "unit_id";
+
+    }
+
+    /**
+     * The Attacks Data Contract
+     */
+    public static final class Attacks implements BaseColumns {
+
+        /**
+         * The Attacks Content Uri
+         */
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon()
+                        .appendPath(PATH_ATTACKS)
+                        .build();
+
+        /**
+         * The Table Name
+         */
+        public static final String TABLE_NAME = "stage_attacks";
+
+        /**
+         * The Stage Identifier, Column Name
+         */
+        public static final String COLUMN_STAGE_ID = "stage_id";
+
+        /**
+         * The Unit Identifier, Column Name
+         */
+        public static final String COLUMN_UNIT_ID = "unit_id";
+
+        /**
+         * The Ability Identifier, Column Name
+         */
+        public static final String COLUMN_ABILITY_ID = "ability_id";
+
+    }
+
+    /**
+     * The Chains Data Contract
+     */
+    public static final class Chains implements BaseColumns {
+
+        /**
+         * The Chains Content Uri
+         */
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon()
+                        .appendPath(PATH_CHAINS)
+                        .build();
+
+        /**
+         * The Table Name
+         */
+        public static final String TABLE_NAME = "chains";
+
+        /**
+         * The Stage Identifier, Column Name
+         */
+        public static final String COLUMN_STAGE_ID = "stage_id";
+
+        /**
+         * The Total High Damage, Column Name
+         */
+        public static final String COLUMN_TOTAL_DAMAGE_HIGH = "total_damage_high";
+
+        /**
+         * The Total Mid Damage, Column Name
+         */
+        public static final String COLUMN_TOTAL_DAMAGE_MID = "total_damage_mid";
+
+        /**
+         * The Total Low Damage, Column Name
+         */
+        public static final String COLUMN_TOTAL_DAMAGE_LOW = "total_damage_low";
+
+    }
+
+    /**
+     * The Chain Hits Data Contract
+     */
+    public static final class ChainHits implements BaseColumns {
+
+        /**
+         * The Chain Hits Content Uri
+         */
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon()
+                        .appendPath(PATH_CHAIN_HITS)
+                        .build();
+
+        /**
+         * The Table Name
+         */
+        public static final String TABLE_NAME = "chain_hits";
+
+        /**
+         * The Chain Identifier, Column Name
+         */
+        public static final String COLUMN_CHAIN_ID = "chain_id";
+
+        /**
+         * The Attack Identifier, Column Name
+         */
+        public static final String COLUMN_ATTACK_ID = "attack_id";
+
+        /**
+         * The Hit Number, Column Name
+         */
+        public static final String COLUMN_HIT_NUMBER = "hit_number";
+
+        /**
+         * The High Damage, Column Name
+         */
+        public static final String COLUMN_DAMAGE_HIGH = "damage_high";
+
+        /**
+         * The Mid Damage, Column Name
+         */
+        public static final String COLUMN_DAMAGE_MID = "damage_mid";
+
+        /**
+         * The Low Damage, Column Name
+         */
+        public static final String COLUMN_DAMAGE_LOW = "damage_low";
 
     }
 
