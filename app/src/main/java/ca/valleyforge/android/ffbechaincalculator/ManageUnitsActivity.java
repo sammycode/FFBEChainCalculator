@@ -30,7 +30,8 @@ import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
  *
  */
 public class ManageUnitsActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>,
+        UnitListAdapter.ListItemClickListener {
 
     /**
      * The Log Tag
@@ -122,7 +123,7 @@ public class ManageUnitsActivity extends AppCompatActivity implements
         _rvUnits = (RecyclerView) findViewById(R.id.rv_units);
         _rvUnits.setLayoutManager(new LinearLayoutManager(this));
 
-        _unitsListAdapater = new UnitListAdapter(this);
+        _unitsListAdapater = new UnitListAdapter(this, this);
         _rvUnits.setAdapter(_unitsListAdapater);
 
         //Arm the Loader, to load the Recycler View
@@ -260,5 +261,20 @@ public class ManageUnitsActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         _unitsListAdapater.swapCursor(null);
+    }
+
+    /**
+     * Fires on ListItem CLick
+     * @param unitId The Clicked ListItem's Bound UnitID
+     */
+    @Override
+    public void onListItemCLick(int unitId) {
+        //When user clicks the item, we need to build an intent to bring up editor,
+        // in edit mode, and with context to the unit in question
+        Intent intent = new Intent(this, EditUnitActivity.class);
+        intent.putExtra(EXTRA_UNIT_CLASS, _unitClass);
+        intent.putExtra(EditUnitActivity.EXTRA_EDIT_MODE, EditUnitActivity.EDIT_MODE_EDIT);
+        intent.putExtra(EditUnitActivity.EXTRA_RECORD_ID, unitId);
+        startActivity(intent);
     }
 }

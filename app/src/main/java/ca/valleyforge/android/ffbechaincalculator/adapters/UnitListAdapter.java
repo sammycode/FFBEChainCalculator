@@ -2,6 +2,8 @@ package ca.valleyforge.android.ffbechaincalculator.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,8 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
      */
     private static final String TAG = UnitListAdapter.class.getSimpleName();
 
+    final private ListItemClickListener _onClickListener;
+
     /**
      * The Bound Cursor
      */
@@ -36,8 +40,9 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
      * Initialize Unit ListAdapter
      * @param context The Activity Context
      */
-    public UnitListAdapter(Context context) {
+    public UnitListAdapter(Context context, ListItemClickListener clickListener) {
         this._context = context;
+        this._onClickListener = clickListener;
     }
 
     /**
@@ -58,6 +63,7 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
      * @param holder The ViewHolder to bind cursor data to
      * @param position The position of the data in the cursor to bind to
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(UnitListViewHolder holder, int position) {
         if (_cursor == null)
@@ -91,6 +97,13 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
         holder._tvSpiritRating .setText(String.format("%.0f", _cursor.getFloat(sprRatingIndex)));
         holder._tvDefenseBroken.setText(String.format("%.0f", _cursor.getFloat(defBrokenIndex)));
         holder._tvSpiritBroken.setText(String.format("%.0f", _cursor.getFloat(sprBrokenIndex)));
+
+        //Adding an alternating color for items, to make each element more distinct
+        if (position % 2 == 1)
+        {
+            holder.itemView.setBackgroundColor(
+                    _context.getResources().getColor(R.color.colorAlternateRow, null));
+        }
 
     }
 
@@ -131,7 +144,8 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
     /**
      * The Unit ListView Holder
      */
-    public class UnitListViewHolder extends RecyclerView.ViewHolder {
+    public class UnitListViewHolder extends RecyclerView.ViewHolder
+        implements View.OnClickListener {
 
         /**
          * The Unit Name TextView
@@ -189,9 +203,31 @@ public class UnitListAdapter extends RecyclerView.Adapter<UnitListAdapter.UnitLi
             _tvDefenseBroken = itemView.findViewById(R.id.tv_unit_defense_broken);
             _tvSpiritBroken = itemView.findViewById(R.id.tv_unit_spirit_broken);
 
-            //TODO: Wireup Click Listener
+            //Wire-up the click listener
+            itemView.setOnClickListener(this);
 
         }
+
+        /**
+         * Called when ListItem is clicked
+         * @param view The View Clicked
+         */
+        @Override
+        public void onClick(View view) {
+            _onClickListener.onListItemCLick((int)view.getTag());
+        }
+    }
+
+    /**
+     * The ListItem ClickListener Interface
+     */
+    public interface ListItemClickListener {
+
+        /**
+         * Fires on ListItem Click
+         * @param unitId The Clicked ListItem's Bound UnitID
+         */
+        void onListItemCLick(int unitId);
 
     }
 

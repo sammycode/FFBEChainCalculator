@@ -3,6 +3,7 @@ package ca.valleyforge.android.ffbechaincalculator;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -78,7 +79,7 @@ public class EditUnitActivity extends AppCompatActivity {
      * for the update.
      * This is sourced from the Intent.
      */
-    private long _unitRecordID;
+    private int _unitRecordID;
 
     /**
      * The Header TextView for the Edit Unit Form
@@ -155,6 +156,11 @@ public class EditUnitActivity extends AppCompatActivity {
         setTitle(getActivityTitle(_editMode));
         _tvEditUnitHeader.setText(getEditUnitHeaderText(_unitClass));
 
+        //If we are editing a unit, we need to pull the current data from the content provider
+        if (EDIT_MODE_EDIT.equals(_editMode)) {
+            loadUnitData();
+        }
+
     }
 
     /**
@@ -179,7 +185,7 @@ public class EditUnitActivity extends AppCompatActivity {
         {
             //An important thing to note here, is that if the ID has not been provided,
             //we are asigning it to -1 so the update function wont update everything in the table
-            _unitRecordID = intent.getLongExtra(EXTRA_RECORD_ID, -1);
+            _unitRecordID = intent.getIntExtra(EXTRA_RECORD_ID, -1);
         }
 
         //Determine the unit class type
@@ -253,6 +259,37 @@ public class EditUnitActivity extends AppCompatActivity {
     }
 
     /**
+     * Gets Existing Record Unit Data,
+     * For purposes of editing
+     * @return The Cursor containing the unit data
+     */
+    private void loadUnitData() {
+        Uri recordUri = ContentUris
+                .withAppendedId(FfbeChainContract.Units.CONTENT_URI, _unitRecordID);
+        Cursor unitData = getContentResolver().query(recordUri, null, null, null, null);
+
+        int nameIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_NAME);
+        int levelIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_LEVEL);
+        int attackPowerIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_ATTACK_POWER);
+        int magicPowerIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_MAGIC_POWER);
+        int defRatingIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_DEFENSE_RATING);
+        int sprRatingIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_SPIRIT_RATING);
+        int defBrokenIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_DEFENCE_BROKEN);
+        int sprBrokenIndex = unitData.getColumnIndex(FfbeChainContract.Units.COLUMN_UNIT_SPIRIT_BROKEN);
+
+        unitData.moveToFirst();
+        _etUnitName.setText(unitData.getString(nameIndex));
+        _etUnitLevel.setText(String.format("%.0f", getFloatFromString(unitData.getString(levelIndex))));
+        _etAttackPower.setText(String.format("%.0f", getFloatFromString(unitData.getString(attackPowerIndex))));
+        _etMagicPower.setText(String.format("%.0f", getFloatFromString(unitData.getString(magicPowerIndex))));
+        _etDefenseRating.setText(String.format("%.0f", getFloatFromString(unitData.getString(defRatingIndex))));
+        _etSpiritRating.setText(String.format("%.0f", getFloatFromString(unitData.getString(sprRatingIndex))));
+        _etDefenseBroken.setText(String.format("%.0f", getFloatFromString(unitData.getString(defBrokenIndex))));
+        _etSpiritBroken.setText(String.format("%.0f", getFloatFromString(unitData.getString(sprBrokenIndex))));
+    }
+
+
+    /**
      * Save Unit Data
      */
     private void saveUnitData() {
@@ -324,14 +361,24 @@ public class EditUnitActivity extends AppCompatActivity {
      */
     private float getFloatValueFromEditText(EditText editControl) {
         String userValue = editControl.getText().toString();
+        return getFloatFromString(userValue);
+    }
+
+    /**
+     * Parse Float from String
+     * @param rawString The Raw String
+     * @return The Float Value, 0 if not parsable for whatever reason
+     */
+    private float getFloatFromString(String rawString) {
         float parsedValue = 0;
         try
         {
-            parsedValue = Float.parseFloat(userValue);
+            parsedValue = Float.parseFloat(rawString);
         }
         catch (Exception caught)
         {
             Log.e(TAG, "Unexpected text format, unable to parse float");
+            caught.printStackTrace();
         }
         return parsedValue;
     }
