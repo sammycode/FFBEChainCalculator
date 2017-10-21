@@ -1,7 +1,9 @@
 package ca.valleyforge.android.ffbechaincalculator;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -10,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -125,6 +128,34 @@ public class ManageUnitsActivity extends AppCompatActivity implements
 
         _unitsListAdapater = new UnitListAdapter(this, this);
         _rvUnits.setAdapter(_unitsListAdapater);
+
+        /*
+            Create ItemTouch Helper, and attach it to the recycler view, to allow swipe motions to
+            delete units
+         */
+        new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    /**
+                     * Fires on swipe action
+                     * @param viewHolder The View Holder
+                     * @param direction The Swipe Direction
+                     */
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        int unitId = (int) viewHolder.itemView.getTag();
+                        Uri unitUri = ContentUris.withAppendedId(FfbeChainContract.Units.CONTENT_URI, unitId);
+                        //TODO: Provide a notification to allow the user to backout of this action
+                        getContentResolver().delete(unitUri, null, null);
+                        getSupportLoaderManager().restartLoader(UNITS_LIST_LOADER, null, ManageUnitsActivity.this);
+                    }
+                }
+        ).attachToRecyclerView(_rvUnits);
 
         //Arm the Loader, to load the Recycler View
         getSupportLoaderManager().initLoader(UNITS_LIST_LOADER, null, this);
