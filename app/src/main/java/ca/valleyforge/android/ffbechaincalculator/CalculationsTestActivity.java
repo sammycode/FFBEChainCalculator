@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
+import ca.valleyforge.android.ffbechaincalculator.models.Unit;
+
 /**
  * The Calculations Test Activityt
  *
@@ -34,6 +37,7 @@ public class CalculationsTestActivity extends AppCompatActivity {
      * @param view The Button View
      */
     public void onCalculateClick(View view) {
-
+        Unit.buildUnitCache(getContentResolver().query(FfbeChainContract.Units.CONTENT_URI, null, null, null, null));
+        return;
     }
 }

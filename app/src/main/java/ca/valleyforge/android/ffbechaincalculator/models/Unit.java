@@ -1,14 +1,26 @@
 package ca.valleyforge.android.ffbechaincalculator.models;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
+import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+import ca.valleyforge.android.ffbechaincalculator.MainActivity;
 import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
 
 /**
  * The Unit
  */
 public class Unit {
+
+    /**
+     * The Logger Tag
+     */
+    private static final String TAG = Unit.class.getSimpleName();
 
     /**
      * The Record Identifier, if loaded from cursor
@@ -111,6 +123,11 @@ public class Unit {
     private float _spiritBrokenPercent;
 
     /**
+     * The Unit Cache
+     */
+    private static Hashtable<Integer, Unit> _unitCache = new Hashtable<>();
+
+    /**
      * Initialize Unit
      */
     public Unit() {}
@@ -146,6 +163,9 @@ public class Unit {
     public Unit(Cursor cursor, int position) {
         assignColumnIndexes(cursor);
         assignFieldValues(cursor, position);
+
+        //Update the cache
+        _unitCache.put(_recordIdentifier, this);
     }
 
     /**
@@ -201,6 +221,64 @@ public class Unit {
         values.put(FfbeChainContract.Units.COLUMN_UNIT_DEFENCE_BROKEN, _defenseBrokenPercent);
         values.put(FfbeChainContract.Units.COLUMN_UNIT_SPIRIT_BROKEN, _spiritBrokenPercent);
         return values;
+    }
+
+    //Commented out the Build Unit Cache for now, I don't think we shouldbe doing this explicitly
+
+//    /**
+//     * Build Unit Cache from cursor
+//     * @param cursor The Cursor
+//     */
+//    public static void buildUnitCache(Cursor cursor) {
+//        try
+//        {
+//            /*
+//                So this is pretty straight forward, just grabbing the number of units
+//                 referenced by the cursor, and using that to build a cache (Array List) of referenced units
+//             */
+//            Hashtable<Integer, Unit> units = new Hashtable<>();
+//            int unitCount = cursor.getCount();
+//            for (int i = 0; i < unitCount; i++) {
+//                Unit unit = new Unit(cursor, i);
+//                units.put(unit.getId(), unit);
+//            }
+//            _unitCache = units;
+//        }
+//        catch (Exception caught)
+//        {
+//            Log.e(TAG, "Unable to get content");
+//            caught.printStackTrace();
+//        }
+//    }
+
+    /**
+     * Gets the Number of Cached Units
+     * @return The Number of Cached Units
+     */
+    public static int getCachedUnitCount() {
+        if (_unitCache != null) {
+            return _unitCache.size();
+        } else
+        {
+            return 0;
+        }
+    }
+
+    /**
+     * Get Cached Unit
+     * @param unitId The Unit Identifier
+     * @return The Cached unit, null if the unit doesn't exist
+     */
+    public static Unit getCachedUnit(int unitId) {
+        return _unitCache.get(unitId);
+    }
+
+    /**
+     * Gets the Record Identifier
+     * @return The Record Identifier
+     */
+    public int getId() {
+        return _recordIdentifier;
     }
 
     /**
