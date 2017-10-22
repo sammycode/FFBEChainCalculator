@@ -6,9 +6,9 @@ import android.database.Cursor;
 import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
 
 /**
- * The Chain Rules Model
+ * The Chain Rule Model
  */
-public class ChainRules {
+public class ChainRule {
 
     /**
      * The Record Identifier
@@ -51,28 +51,28 @@ public class ChainRules {
     private int _hitModifierCap;
 
     /**
-     * Initialize ChainRules
+     * Initialize ChainRule
      */
-    public ChainRules() {}
+    public ChainRule() {}
 
     /**
-     * Initialize ChainRules
+     * Initialize ChainRule
      * @param name The Name
      * @param damageModifier The Damage Modifier
      * @param hitModifierCap The Hit Modifier Cap
      */
-    public ChainRules(String name, float damageModifier, int hitModifierCap) {
+    public ChainRule(String name, float damageModifier, int hitModifierCap) {
         _name = name;
         _damageModifier = damageModifier;
         _hitModifierCap = hitModifierCap;
     }
 
     /**
-     * Initialize ChainRules (From Cursor)
+     * Initialize ChainRule (From Cursor)
      * @param cursor The Cursor
      * @param position The Position within the cursor
      */
-    public ChainRules(Cursor cursor, int position) {
+    public ChainRule(Cursor cursor, int position) {
         assignColumnIndexes(cursor);
         assignFieldValues(cursor, position);
     }

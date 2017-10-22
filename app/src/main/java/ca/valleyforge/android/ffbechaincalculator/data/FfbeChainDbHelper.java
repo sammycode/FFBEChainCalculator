@@ -218,7 +218,7 @@ public class FfbeChainDbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Seed ChainRules Data
+     * Seed ChainRule Data
      * @param db The Database
      */
     private void seedChainRules(SQLiteDatabase db) {
