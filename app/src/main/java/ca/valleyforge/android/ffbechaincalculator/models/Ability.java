@@ -3,6 +3,8 @@ package ca.valleyforge.android.ffbechaincalculator.models;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import java.util.Hashtable;
+
 import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
 
 /**
@@ -81,6 +83,11 @@ public class Ability {
     private int _numberOfHits;
 
     /**
+     * The Ability Cache
+     */
+    private static Hashtable<Integer, Ability> _abilitiesCache = new Hashtable<>();
+
+    /**
      * Initialize Ability
      */
     public Ability() {}
@@ -104,8 +111,11 @@ public class Ability {
      */
     public Ability(Cursor cursor, int position) {
         assignColumnIndexes(cursor);
-        //TODO: Assign Field Values
-        //TODO: Build ContentValues Method
+        assignFieldValues(cursor, position);
+
+        //Cache Ability
+        _abilitiesCache.put(_recordIdentifier, this);
+
     }
 
     /**
@@ -149,6 +159,28 @@ public class Ability {
         values.put(FfbeChainContract.Abilities.COLUMN_IGNORE_SPIRIT_MODIFIER, _ignoreSpiritModifier);
         values.put(FfbeChainContract.Abilities.COLUMN_NUMBER_OF_HITS, _numberOfHits);
         return values;
+    }
+
+    /**
+     * Gets the Number of Cached Abilities
+     * @return The Number of Cached Abilities
+     */
+    public static int getCachedAbilitiesCount() {
+        if (_abilitiesCache != null) {
+            return _abilitiesCache.size();
+        } else
+        {
+            return 0;
+        }
+    }
+
+    /**
+     * Get Cached Ability
+     * @param abilityId The Ability Identifier
+     * @return The Cached Ability, null if the Ability doesn't exist
+     */
+    public static Ability getCachedChainRule(int abilityId) {
+        return _abilitiesCache.get(abilityId);
     }
 
     /**

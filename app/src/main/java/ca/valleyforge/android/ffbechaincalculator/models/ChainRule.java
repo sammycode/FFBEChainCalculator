@@ -3,6 +3,8 @@ package ca.valleyforge.android.ffbechaincalculator.models;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import java.util.Hashtable;
+
 import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
 
 /**
@@ -51,6 +53,11 @@ public class ChainRule {
     private int _hitModifierCap;
 
     /**
+     * The ChainRule Cache
+     */
+    private static Hashtable<Integer, ChainRule> _chainRulesCache = new Hashtable<>();
+
+    /**
      * Initialize ChainRule
      */
     public ChainRule() {}
@@ -75,6 +82,8 @@ public class ChainRule {
     public ChainRule(Cursor cursor, int position) {
         assignColumnIndexes(cursor);
         assignFieldValues(cursor, position);
+        //Update Cache
+        _chainRulesCache.put(_recordIdentifier, this);
     }
 
     /**
@@ -112,6 +121,28 @@ public class ChainRule {
         values.put(FfbeChainContract.ChainRules.COLUMN_DAMAGE_MODIFIER, _damageModifier);
         values.put(FfbeChainContract.ChainRules.COLUMN_HIT_MODIFIER_CAP, _hitModifierCap);
         return values;
+    }
+
+    /**
+     * Gets the Number of Cached Chain Rules
+     * @return The Number of Cached Chain Rules
+     */
+    public static int getCachedChainRulesCount() {
+        if (_chainRulesCache != null) {
+            return _chainRulesCache.size();
+        } else
+        {
+            return 0;
+        }
+    }
+
+    /**
+     * Get Cached Chain Rule
+     * @param chainRuleId The Chain Rule Identifier
+     * @return The Cached Chain Rule, null if the Chain Rule doesn't exist
+     */
+    public static ChainRule getCachedChainRule(int chainRuleId) {
+        return _chainRulesCache.get(chainRuleId);
     }
 
     /**

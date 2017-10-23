@@ -37,7 +37,7 @@ public class CalculationsTestActivity extends AppCompatActivity {
      * @param view The Button View
      */
     public void onCalculateClick(View view) {
-        Unit.buildUnitCache(getContentResolver().query(FfbeChainContract.Units.CONTENT_URI, null, null, null, null));
+        //Unit.buildUnitCache(getContentResolver().query(FfbeChainContract.Units.CONTENT_URI, null, null, null, null));
         return;
     }
 }
