@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import ca.valleyforge.android.ffbechaincalculator.data.FfbeChainContract;
+import ca.valleyforge.android.ffbechaincalculator.models.Stage;
 import ca.valleyforge.android.ffbechaincalculator.models.Unit;
 
 /**
@@ -39,11 +40,25 @@ public class CalculationsTestActivity extends AppCompatActivity {
      * @param view The Button View
      */
     public void onCalculateClick(View view) {
-        //Unit.buildUnitCache(getContentResolver().query(FfbeChainContract.Units.CONTENT_URI, null, null, null, null));
 
-        Uri unitUri = ContentUris.withAppendedId(FfbeChainContract.Units.CONTENT_URI, 1);
-        new Unit(getContentResolver().query(unitUri, null, null, null, null), 0);
-        Unit cachedUnit = Unit.getCachedUnit(1);
+        /*
+            Maybe the best thing here, would be to have the UI create a stage first.
+            Then from the stage, add units to it.  
+         */
+
+        Unit unit1 = new Unit("Ashe", 100, 300, 650, 100, 100, 0, 0);
+        Unit unit2 = new Unit("Ashe2", 100, 300, 650, 100, 100, 0, 0);
+        Unit unit3 = new Unit("Ashe3", 100, 300, 650, 100, 100, 0, 0);
+        Unit unit4 = new Unit("Ashe4", 100, 300, 650, 100, 100, 0, 0);
+        Unit unit5 = new Unit("Ashe5", 100, 300, 650, 100, 100, 0, 0);
+
+        Unit badGuy = new Unit("badguy1", 100, 200, 200, 200, 200, 0, 0);
+
+        //TODO: Review possible disconnect, the stage wants just an ID for the badguy, which means it must be sourced from the
+        //SQLite database, can't just hard code everything, and we should be able to... maybe...
+        Stage chainStage = new Stage("Chain 1", 1);
+
+
 
 
         return;

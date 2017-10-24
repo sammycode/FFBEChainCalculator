@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.valleyforge.android.ffbechaincalculator.EditStageActivity">
+
+    <FrameLayout
+        android:id="@+id/grp_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv_edit_stage_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[[Edit Stage Header Text]]"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/grp_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grp_header"
+        android:layout_above="@+id/grb_button_bar">
+
+        <!-- TODO: Add Field Editor Control Groups -->
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/grb_button_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/ButtonBar"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/bn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bn_cancel_text"
+            android:layout_toLeftOf="@+id/bn_save"
+            android:layout_toStartOf="@id/bn_save"/>
+
+        <Button
+            android:id="@+id/bn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bn_save_text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

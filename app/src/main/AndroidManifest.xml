@@ -13,12 +13,9 @@
         <!--
             Temporarily switched calculations test activity to launcher default,
             don't forget to switch this back...
+        -->
 
-         -->
-
-        <activity android:name=".CalculationsTestActivity">
-
-        </activity>
+        <activity android:name=".CalculationsTestActivity" />
 
         <!-- The Main Acivity -->
         <activity
@@ -61,7 +58,8 @@
             android:authorities="ca.valleyforge.android.ffbechaincalculator"
             android:exported="false" />
 
-
+        <activity android:name=".ManageStagesActivity" />
+        <activity android:name=".EditStageActivity"></activity>
     </application>
 
 </manifest>
