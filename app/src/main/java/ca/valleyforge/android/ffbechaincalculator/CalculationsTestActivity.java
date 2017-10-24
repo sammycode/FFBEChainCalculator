@@ -1,5 +1,7 @@
 package ca.valleyforge.android.ffbechaincalculator;
 
+import android.content.ContentUris;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +40,12 @@ public class CalculationsTestActivity extends AppCompatActivity {
      */
     public void onCalculateClick(View view) {
         //Unit.buildUnitCache(getContentResolver().query(FfbeChainContract.Units.CONTENT_URI, null, null, null, null));
+
+        Uri unitUri = ContentUris.withAppendedId(FfbeChainContract.Units.CONTENT_URI, 1);
+        new Unit(getContentResolver().query(unitUri, null, null, null, null), 0);
+        Unit cachedUnit = Unit.getCachedUnit(1);
+
+
         return;
     }
 }

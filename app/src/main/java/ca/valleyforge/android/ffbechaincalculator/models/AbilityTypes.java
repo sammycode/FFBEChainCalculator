@@ -21,6 +21,11 @@ public enum AbilityTypes {
      * Hybrid based damage,
      * damage modified by both ATK and MAG, damage reduced by both DEF and SPR
      */
-    Hybrid
+    Hybrid,
+
+    /**
+     * Unknown Ability Type
+     */
+    Unknown
 
 }

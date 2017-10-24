@@ -223,34 +223,6 @@ public class Unit {
         return values;
     }
 
-    //Commented out the Build Unit Cache for now, I don't think we shouldbe doing this explicitly
-
-//    /**
-//     * Build Unit Cache from cursor
-//     * @param cursor The Cursor
-//     */
-//    public static void buildUnitCache(Cursor cursor) {
-//        try
-//        {
-//            /*
-//                So this is pretty straight forward, just grabbing the number of units
-//                 referenced by the cursor, and using that to build a cache (Array List) of referenced units
-//             */
-//            Hashtable<Integer, Unit> units = new Hashtable<>();
-//            int unitCount = cursor.getCount();
-//            for (int i = 0; i < unitCount; i++) {
-//                Unit unit = new Unit(cursor, i);
-//                units.put(unit.getId(), unit);
-//            }
-//            _unitCache = units;
-//        }
-//        catch (Exception caught)
-//        {
-//            Log.e(TAG, "Unable to get content");
-//            caught.printStackTrace();
-//        }
-//    }
-
     /**
      * Gets the Number of Cached Units
      * @return The Number of Cached Units

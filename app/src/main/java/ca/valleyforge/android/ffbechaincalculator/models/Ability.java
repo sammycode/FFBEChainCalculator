@@ -55,7 +55,7 @@ public class Ability {
     /**
      * The Ability Type
      */
-    private AbilityTypes _abilityType;
+    private String _abilityType;
 
     /**
      * The Ability Name
@@ -96,7 +96,7 @@ public class Ability {
      * Initialize Ability
      */
     public Ability(AbilityTypes abilityType, String name, float damageModifier, float ignoreDefenseModifier, float ignoreSpiritModifier, int numberOfHits) {
-        _abilityType = abilityType;
+        _abilityType = getAbilityTypeCode(abilityType);
         _name = name;
         _damageModifier = damageModifier;
         _ignoreDefenseModifier = ignoreDefenseModifier;
@@ -124,6 +124,7 @@ public class Ability {
      */
     private void assignColumnIndexes(Cursor cursor) {
         _idIndex = cursor.getColumnIndex(FfbeChainContract.Abilities._ID);
+        _abilityTypeIndex = cursor.getColumnIndex(FfbeChainContract.Abilities.COLUMN_ABILITY_TYPE);
         _nameIndex = cursor.getColumnIndex(FfbeChainContract.Abilities.COLUMN_NAME);
         _damageModifierIndex = cursor.getColumnIndex(FfbeChainContract.Abilities.COLUMN_DAMAGE_MODIFIER);
         _ignoreDefenseModifierIndex = cursor.getColumnIndex(FfbeChainContract.Abilities.COLUMN_IGNORE_DEFENSE_MODIFIER);
@@ -138,6 +139,7 @@ public class Ability {
      */
     private void assignFieldValues(Cursor cursor, int position) {
         cursor.moveToPosition(position);
+        _abilityType = cursor.getString(_abilityTypeIndex);
         _recordIdentifier = cursor.getInt(_idIndex);
         _name = cursor.getString(_nameIndex);
         _damageModifier = cursor.getFloat(_damageModifierIndex);
@@ -179,7 +181,7 @@ public class Ability {
      * @param abilityId The Ability Identifier
      * @return The Cached Ability, null if the Ability doesn't exist
      */
-    public static Ability getCachedChainRule(int abilityId) {
+    public static Ability getCachedAbility(int abilityId) {
         return _abilitiesCache.get(abilityId);
     }
 
@@ -188,7 +190,18 @@ public class Ability {
      * @return The Ability Type
      */
     public AbilityTypes getAbilityType() {
-        return _abilityType;
+
+        switch (_abilityType) {
+            case FfbeChainContract.Abilities.ABILITY_TYPE_PHYSICAL:
+                return AbilityTypes.Physical;
+            case FfbeChainContract.Abilities.ABILITY_TYPE_MAGIC:
+                return AbilityTypes.Magic;
+            case FfbeChainContract.Abilities.ABILITY_TYPE_HYBRID:
+                return AbilityTypes.Hybrid;
+            default:
+                return AbilityTypes.Unknown;
+        }
+
     }
 
     /**
@@ -196,7 +209,7 @@ public class Ability {
      * @param abilityType The Ability Type
      */
     public void setAbilityType(AbilityTypes abilityType) {
-        _abilityType = abilityType;
+        _abilityType = getAbilityTypeCode(abilityType);
     }
 
     /**
@@ -279,7 +292,40 @@ public class Ability {
         _numberOfHits = numberOfHits;
     }
 
-    //TODO: Wireup Cursor Bling...
+    /**
+     * Gets Ability Type from Code
+     * @param abilityTypeCode
+     * @return
+     */
+    private static AbilityTypes getAbilityTypeFromCode(String abilityTypeCode) {
+        switch (abilityTypeCode) {
+            case FfbeChainContract.Abilities.ABILITY_TYPE_PHYSICAL:
+                return AbilityTypes.Physical;
+            case FfbeChainContract.Abilities.ABILITY_TYPE_MAGIC:
+                return AbilityTypes.Magic;
+            case FfbeChainContract.Abilities.ABILITY_TYPE_HYBRID:
+                return AbilityTypes.Hybrid;
+            default:
+                return AbilityTypes.Unknown;
+        }
+    }
 
+    /**
+     * Gets Ability Type Code from Ability Type
+     * @param abilityType The Ability Type
+     * @return The Ability Type Code
+     */
+    private static String getAbilityTypeCode(AbilityTypes abilityType) {
+        switch (abilityType) {
+            case Physical:
+                return FfbeChainContract.Abilities.ABILITY_TYPE_PHYSICAL;
+            case Magic:
+                return FfbeChainContract.Abilities.ABILITY_TYPE_MAGIC;
+            case Hybrid:
+                return FfbeChainContract.Abilities.ABILITY_TYPE_HYBRID;
+            default:
+                return "UNKNOWN";
+        }
+    }
 
 }
