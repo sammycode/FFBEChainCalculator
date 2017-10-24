@@ -110,7 +110,7 @@ public class ChainCalculationEngine extends AsyncTaskLoader<Chain> {
         for (int i = 0; i < abilitiesCursor.getCount(); i++) {
             new Ability(abilitiesCursor, i);
         }
-        
+
         //TODO: Create new Chain Object
         //TODO: Insert new Chain Object into SQLite Database
         //TODO: Run Calculation building ChainHit objects, and get them inserted into the SQLite Database
